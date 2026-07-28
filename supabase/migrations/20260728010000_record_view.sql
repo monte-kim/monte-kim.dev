@@ -31,5 +31,8 @@ begin
 end;
 $$;
 
--- service role only — no public/anon execution
+-- service role only — no public/anon execution.
+-- NOTE: revoking from PUBLIC also strips service_role (it only inherits the
+-- default PUBLIC grant), so it must be granted back explicitly.
 revoke execute on function public.record_post_view(text, text) from public, anon, authenticated;
+grant execute on function public.record_post_view(text, text) to service_role;

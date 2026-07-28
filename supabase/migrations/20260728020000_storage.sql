@@ -1,8 +1,15 @@
 -- Post images bucket: public read, authenticated (admin) write.
 -- Client compresses to <300KB before upload (free tier: 1GB Storage).
 
-insert into storage.buckets (id, name, public)
-values ('post-images', 'post-images', true)
+-- bucket-level hard limits back up the app-side checks (300KB, images only)
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'post-images',
+  'post-images',
+  true,
+  307200, -- 300KB
+  array['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml']
+)
 on conflict (id) do nothing;
 
 create policy "public read post images"

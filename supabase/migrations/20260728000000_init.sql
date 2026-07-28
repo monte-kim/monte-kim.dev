@@ -26,6 +26,7 @@ create index posts_published_idx
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
+set search_path = public
 as $$
 begin
   new.updated_at := now();
@@ -145,5 +146,19 @@ create policy "public read comments"
   on public.comments for select
   using (true);
 
+-- comment moderation from a future admin UI
+create policy "admin delete comments"
+  on public.comments for delete
+  to authenticated
+  using (true);
+
+-- Say hi inbox for a future admin UI (no public read — contains emails)
+create policy "admin read messages"
+  on public.messages for select
+  to authenticated
+  using (true);
+
 -- comments/messages inserts: service role only (server actions with
 -- honeypot + rate limit); no public insert policy on purpose.
+-- NOTE: the `to authenticated` write policies assume a single admin user —
+-- public sign-ups MUST stay disabled in Supabase Auth settings.
