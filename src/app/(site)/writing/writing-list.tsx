@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { CommentIcon, EyeIcon, SearchIcon } from "@/components/icons";
 import {
   formatPostDateLong,
@@ -25,18 +25,6 @@ export function WritingList({
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const searchRef = useRef<HTMLInputElement>(null);
-
-  // ⌘K / Ctrl+K focuses search
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        searchRef.current?.focus();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
 
   const tagCounts = useMemo(() => {
     const counts = new Map<string, number>();

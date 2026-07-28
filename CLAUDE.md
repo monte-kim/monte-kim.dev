@@ -41,10 +41,13 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 
 - `/admin` + Tiptap 에디터 — 화면 2g/3c. Tiptap v3 (StarterKit에 Link/Underline 포함, CodeBlockLowlight, Image, Placeholder). 인증: `src/middleware.ts`가 `/admin/*` 가드(@supabase/ssr 세션 쿠키, `src/lib/supabase-server.ts`), `/admin/login` 이메일+비밀번호(공개 가입 없음 — Supabase 대시보드에서 사용자 1명 생성). **env 없으면 프리뷰 모드**: 샘플 포스트 read-only, 저장/발행 비활성. 관리자 쓰기는 세션 클라이언트(RLS authenticated) — `actions/admin.ts` (createDraft/savePost/publishPost/unpublishPost/uploadImage). 자동저장 2초 디바운스 + read_minutes/excerpt 자동 계산, 발행 시 slug 생성(중복 시 -2 suffix). 에디터 UI: `admin/editor/[id]/editor-shell.tsx`(상단 바, Write/Preview — Preview는 공개 `PostContent` 재사용, 태그 칩 편집), `slash-command.tsx`(Suggestion 기반, tippy 없이 fixed 포지셔닝), BubbleMenu(`@tiptap/react/menus`, z-50 필수), DragHandle(`@tiptap/extension-drag-handle-react`), 모바일 하단 블록 툴바. 이미지: `src/lib/compress-image.ts` 클라이언트 압축(<300KB) → Storage `post-images` 버킷(`20260728020000_storage.sql`). 에디터 prose 스타일은 globals.css `.editor-prose`. "Add cover" 칩은 TODO(비활성).
 
-미완료 (추천 순서 — projects/about은 의도적으로 후순위):
-1. 인프라: Vercel 배포, Supabase 비활성 방지 GitHub Actions 핑 크론(주 2회), ⌘K 전역 검색 모달
-2. `/projects` — 화면 2b. 2×2 카드 (Muroom, Fitness platform API, monte-kim.dev, News classifier MLOps) + 역할 배지, 스택 칩, 링크 (DB 불필요, 정적)
-3. `/about` — 화면 2c. 내러티브, Now 콜아웃, 타임라인(2열: mono 연도 + 항목), 툴 칩, CV 다운로드 + Say hi CTA (DB 불필요, 정적)
+- `/projects` — 화면 2b. 정적 카드 4개(`projects/page.tsx`에 하드코딩, 설명만 i18n). **케이스 스터디 링크는 폴백 샘플 slug를 가리킴** — 실제 글 발행 후 교체. Muroom/News classifier의 GitHub 링크는 임시로 프로필(github.com/monte-kim).
+- `/about` — 화면 2c. **CV 다운로드 버튼은 Monte 결정으로 제외** (Say hi CTA만, filled 스타일로 승격). 타임라인/툴 칩 정적, 카피 i18n.
+- 인프라 일부: `.github/workflows/supabase-ping.yml` (스케줄 월·목, secrets `SUPABASE_URL`/`SUPABASE_ANON_KEY` 필요 — 미설정 시 스킵), ⌘K 전역 검색 모달(`src/components/search-modal.tsx` + `/api/search` 라우트, (site) 레이아웃에 마운트 — writing-list의 로컬 ⌘K 핸들러는 제거됨), Footer/say-hi에 실제 프로필 URL(github.com/monte-kim, linkedin.com/in/monte-kim).
+
+미완료:
+1. **Vercel 배포** — Monte 계정 필요: vercel.com에서 GitHub 레포 import → 환경 변수는 Supabase 연결 후 등록. (배포 자체는 대시보드 클릭 몇 번)
+2. Monte 작업: Supabase 프로젝트 생성/연결, GitHub Actions secrets 등록, ko.json 검수, 프로젝트 카드의 실제 저장소 URL/케이스 스터디 링크 교체
 
 Supabase: **아직 미연결** (Monte가 계정/프로젝트 생성 예정). 연결 절차: 프로젝트 생성(Seoul 리전) → SQL Editor에 마이그레이션 **3개 순서대로** 실행(init → record_view → storage) → Authentication에서 관리자 사용자 1명 생성(+ Sign-ups 비활성화) → Settings→API에서 URL/anon/service_role 복사 → `.env.example` 참고해 `.env.local` 작성(`IP_HASH_SALT`는 `openssl rand -hex 32`). 연결 전까지는 폴백 샘플 데이터로 동작(admin은 read-only 프리뷰).
 

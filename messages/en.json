@@ -68,6 +68,47 @@
       "unavailable": "Comments aren't available right now — please try again later."
     }
   },
+  "projectsPage": {
+    "title": "Projects",
+    "subtitle": "Things I've founded, built, and kept running in production.",
+    "caseStudy": "Case study",
+    "muroomDesc": "University-backed music-studio rental platform. Led backend in a team of six; MVP shipped in 5 months. Geocoding → EPSG:5179→WGS84 → PostGIS viewport search with 13 dynamic filters.",
+    "fitnessDesc": "Multi-tenant REST API — 183 endpoints, 22 domains, one OAuth2 scope-based account system serving 4 client surfaces. 480× analytics speed-up, −58% AWS cost.",
+    "siteDesc": "This blog. Next.js + Supabase on free tiers, custom block editor with markdown shortcuts, view counts and comments on Postgres.",
+    "newsClassifierDesc": "2-month news-classification pipeline — React/Redux frontend, FastAPI model management, multiprocessing + SSE. 3rd place at Hecto Group showcase."
+  },
+  "aboutPage": {
+    "title": "About",
+    "p1": "I'm Tae Hwan Kim — Monte to most people. I'm a software engineer — backend-leaning, full-stack in practice — who likes owning the whole path: Terraform and CI/CD at the bottom, Spring Boot APIs in the middle, Next.js consoles on top.",
+    "p2": "Before software I wrote music — released tracks, scored independent films, produced ad music. That's what led me to found Muroom, a studio-rental platform for musicians. I still think building products is closer to composing than to engineering textbooks admit.",
+    "nowTitle": "Now",
+    "nowBody": "Building the fitness platform at Moty in Seoul. Moving to the UK in <b>October 2026</b> on a Youth Mobility Scheme visa — no sponsorship needed. Open to software engineering roles (backend / full-stack) in London.",
+    "pathTitle": "Path so far",
+    "timeline": {
+      "moty": {
+        "period": "2025 — now",
+        "role": "Software Engineer · Moty",
+        "desc": "Multi-tenant fitness-platform API, auth framework, analytics redesign, infra ownership."
+      },
+      "muroom": {
+        "period": "2025 — 26",
+        "role": "Founder & Backend Lead · Muroom",
+        "desc": "University-backed startup; led a team of six to an MVP in 5 months."
+      },
+      "nhn": {
+        "period": "2024",
+        "role": "Java Backend Course · NHN Academy",
+        "desc": "Full backend stack; 8-week online-bookstore build with Spring Security + JWT."
+      },
+      "university": {
+        "period": "2017 — 24",
+        "role": "B.S. Computer Science · Seokyeong University",
+        "desc": "Multiple merit scholarships; AI/Big-Data track, LikeLion project lead."
+      }
+    },
+    "toolsTitle": "Tools I reach for",
+    "sayHi": "Say hi"
+  },
   "sayHiPage": {
     "title": "Say hi",
     "subtitle": "Hiring in London? Curious about a post? Want to talk PostGIS or music production? I reply to everything.",

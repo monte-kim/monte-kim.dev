@@ -201,6 +201,33 @@ export function ArrowUpRightIcon(props: IconProps) {
   );
 }
 
+export function CodeIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="m5 4-3.5 4L5 12M11 4l3.5 4L11 12" />
+    </svg>
+  );
+}
+
+export function BarChartIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="2" y="9" width="3" height="5" rx="0.5" />
+      <rect x="6.5" y="5" width="3" height="9" rx="0.5" />
+      <rect x="11" y="2" width="3" height="12" rx="0.5" />
+    </svg>
+  );
+}
+
+export function ClockIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <circle cx="8" cy="8" r="6.5" />
+      <path d="M8 4.5V8l2.5 1.5" />
+    </svg>
+  );
+}
+
 export function MusicIcon(props: IconProps) {
   return (
     <svg {...base(props)}>

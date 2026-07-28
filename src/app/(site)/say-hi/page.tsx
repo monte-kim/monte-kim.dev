@@ -25,11 +25,20 @@ export default async function SayHiPage() {
           <MailIcon size={15} />
           monte6198@gmail.com
         </a>
-        {/* TODO: real profile URLs (same placeholders as Footer) */}
-        <a href="#" className="hover:text-ink">
+        <a
+          href="https://github.com/monte-kim"
+          target="_blank"
+          rel="noreferrer noopener"
+          className="hover:text-ink"
+        >
           GitHub ↗
         </a>
-        <a href="#" className="hover:text-ink">
+        <a
+          href="https://www.linkedin.com/in/monte-kim/"
+          target="_blank"
+          rel="noreferrer noopener"
+          className="hover:text-ink"
+        >
           LinkedIn ↗
         </a>
       </div>

@@ -1,9 +1,8 @@
 import { useTranslations } from "next-intl";
 
 const LINKS = [
-  // TODO: replace with real profile URLs
-  { key: "github", href: "https://github.com/" },
-  { key: "linkedin", href: "https://www.linkedin.com/" },
+  { key: "github", href: "https://github.com/monte-kim" },
+  { key: "linkedin", href: "https://www.linkedin.com/in/monte-kim/" },
   { key: "email", href: "mailto:monte6198@gmail.com" },
 ] as const;
 
