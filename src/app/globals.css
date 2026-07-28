@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Design tokens (Blog Portfolio.dc.html) ─────────────────────── */
+:root {
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --ink: #1a1a18;
+  --body-c: #4a4945;
+  --muted: #6f6e69;
+  --placeholder: #a3a29c;
+  --border-c: #d9d8d3;
+  --hairline: #ecebe7;
+  --subtle: #f4f3f0;
+  --selection: #dce6f5;
+  --btn2-border: #d9d8d3;
+  --shadow-card: 0 2px 16px rgba(26, 26, 24, 0.06);
+  --shadow-menu: 0 8px 28px rgba(26, 26, 24, 0.14);
+}
+
+.dark {
+  --bg: #191918;
+  --surface: #1f1f1e;
+  --ink: #edece8;
+  --body-c: #b5b4ae;
+  --muted: #8f8e88;
+  --placeholder: #6f6e69;
+  --border-c: #2c2c2a;
+  --hairline: #2c2c2a;
+  --subtle: #232322;
+  --selection: #2f3a4d;
+  --btn2-border: #3a3a37;
+  --shadow-card: 0 2px 16px rgba(26, 26, 24, 0.2);
+  --shadow-menu: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-body: var(--body-c);
+  --color-muted: var(--muted);
+  --color-placeholder: var(--placeholder);
+  --color-border: var(--border-c);
+  --color-hairline: var(--hairline);
+  --color-subtle: var(--subtle);
+  --color-btn2-border: var(--btn2-border);
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --shadow-card: var(--shadow-card);
+  --shadow-menu: var(--shadow-menu);
+}
+
+::selection {
+  background: var(--selection);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Editor prose (Tiptap) — mirrors the public post renderer ───────── */
+.editor-prose {
+  outline: none;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #33322f;
+}
+.dark .editor-prose {
+  color: var(--body-c);
+}
+.editor-prose p {
+  margin: 0 0 18px;
+}
+.editor-prose h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--ink);
+  margin: 36px 0 14px;
+}
+.editor-prose h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--ink);
+  margin: 28px 0 12px;
+}
+.editor-prose pre {
+  background: #1f1f1e;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 0 0 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: #edece8;
+  overflow-x: auto;
+}
+.editor-prose pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+.editor-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--subtle);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+.editor-prose blockquote {
+  border-left: 2px solid var(--ink);
+  margin: 0 0 18px;
+  padding: 4px 0 4px 20px;
+  font-style: italic;
+  color: var(--body-c);
+}
+.editor-prose ul,
+.editor-prose ol {
+  padding-left: 20px;
+  margin: 0 0 18px;
+}
+.editor-prose ul {
+  list-style: disc outside;
+}
+.editor-prose ol {
+  list-style: decimal outside;
+}
+.editor-prose li {
+  margin-bottom: 6px;
+}
+.editor-prose li p {
+  margin: 0;
+}
+.editor-prose img {
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border-c);
+  margin: 0 0 18px;
+}
+.editor-prose img.ProseMirror-selectednode {
+  outline: 2px solid var(--ink);
+}
+.editor-prose hr {
+  border: none;
+  border-top: 1px solid var(--hairline);
+  margin: 32px 0;
+}
+.editor-prose a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.editor-prose p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: var(--placeholder);
+}

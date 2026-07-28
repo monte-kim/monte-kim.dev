@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "home": "Home",
+    "writing": "Writing",
+    "projects": "Projects",
+    "about": "About",
+    "sayHi": "Say hi"
+  },
+  "home": {
+    "titleL1": "Hi, I'm Monte.",
+    "titleL2": "I build things end to end.",
+    "titleL2a": "I build things",
+    "titleL2b": "end to end.",
+    "intro": "Software engineer in Seoul, moving to the UK in October 2026. I run production Spring Boot APIs on AWS, build the Next.js consoles on top, and write about what breaks along the way.",
+    "introShort": "Software engineer in Seoul, moving to the UK in October 2026. Spring Boot APIs on AWS, Next.js on top.",
+    "readBlog": "Read the blog",
+    "sayHi": "Say hi",
+    "availability": "Available from Oct 2026 · YMS visa — no sponsorship needed",
+    "availabilityShort": "Oct 2026 · YMS visa · no sponsorship needed",
+    "stat1Value": "480×",
+    "stat1Label": "faster analytics via pre-aggregation",
+    "stat1LabelShort": "analytics",
+    "stat2Value": "−58%",
+    "stat2Label": "AWS cost after redesign",
+    "stat2LabelShort": "AWS cost",
+    "stat3Value": "183",
+    "stat3Label": "endpoints, 22 domains, one auth",
+    "stat3LabelShort": "endpoints",
+    "writing": "Writing",
+    "allPosts": "All posts →",
+    "allShort": "All →",
+    "projects": "Projects",
+    "allProjects": "All projects →",
+    "minRead": "{minutes} min",
+    "views": "{count} views",
+    "muroomTitle": "Muroom",
+    "muroomDesc": "Music-studio rental platform I founded. PostGIS map search, 13 filters, 120 endpoints.",
+    "fitnessTitle": "Fitness platform API",
+    "fitnessDesc": "Multi-tenant REST API at Moty — OAuth2 scopes, 4 client surfaces, zero-downtime CI/CD."
+  },
+  "writingPage": {
+    "title": "Writing",
+    "subtitle": "Production war stories: backend architecture, AWS, and the occasional retrospective.",
+    "searchPlaceholder": "Search posts…",
+    "all": "All",
+    "readTime": "{minutes} min read",
+    "empty": "No posts match your search."
+  },
+  "post": {
+    "allPosts": "All posts",
+    "readTime": "{minutes} min read",
+    "minShort": "{minutes} min",
+    "views": "{count} views",
+    "onThisPage": "ON THIS PAGE",
+    "onThisPageMobile": "On this page",
+    "comments": "{count, plural, one {# comment} other {# comments}}",
+    "addComment": "Add a comment…",
+    "name": "Name",
+    "emailOptional": "Email (optional)",
+    "post": "Post",
+    "reply": "Reply",
+    "cancel": "Cancel",
+    "author": "author",
+    "share": "Share",
+    "error": {
+      "invalid": "Please fill in your name and a comment.",
+      "rateLimited": "Too many comments — please try again in a few minutes.",
+      "unavailable": "Comments aren't available right now — please try again later."
+    }
+  },
+  "sayHiPage": {
+    "title": "Say hi",
+    "subtitle": "Hiring in London? Curious about a post? Want to talk PostGIS or music production? I reply to everything.",
+    "name": "Name",
+    "namePlaceholder": "Jane Recruiter",
+    "email": "Email",
+    "emailPlaceholder": "jane@company.co.uk",
+    "message": "Message",
+    "messagePlaceholder": "We're looking for a backend engineer who…",
+    "send": "Send message",
+    "sending": "Sending…",
+    "success": "Thanks — your message is on its way. I'll get back to you soon.",
+    "error": {
+      "invalid": "Please fill in all fields with a valid email.",
+      "rateLimited": "Too many messages — please try again in a few minutes.",
+      "unavailable": "The form isn't available right now — email me instead at monte6198@gmail.com."
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 Tae Hwan \"Monte\" Kim",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  }
+}
