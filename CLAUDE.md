@@ -43,13 +43,13 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 
 - `/projects` — 화면 2b. 정적 카드 4개(`projects/page.tsx`에 하드코딩, 설명만 i18n). **케이스 스터디 링크는 폴백 샘플 slug를 가리킴** — 실제 글 발행 후 교체. Muroom/News classifier의 GitHub 링크는 임시로 프로필(github.com/monte-kim).
 - `/about` — 화면 2c. **CV 다운로드 버튼은 Monte 결정으로 제외** (Say hi CTA만, filled 스타일로 승격). 타임라인/툴 칩 정적, 카피 i18n.
-- 인프라 일부: `.github/workflows/supabase-ping.yml` (스케줄 월·목, secrets `SUPABASE_URL`/`SUPABASE_ANON_KEY` 필요 — 미설정 시 스킵), ⌘K 전역 검색 모달(`src/components/search-modal.tsx` + `/api/search` 라우트, (site) 레이아웃에 마운트 — writing-list의 로컬 ⌘K 핸들러는 제거됨), Footer/say-hi에 실제 프로필 URL(github.com/monte-kim, linkedin.com/in/monte-kim).
+- 인프라 일부: `.github/workflows/supabase-ping.yml` (스케줄 월·목, secrets `SUPABASE_URL`/`SUPABASE_PUBLISHABLE_KEY` 필요 — 미설정 시 스킵), ⌘K 전역 검색 모달(`src/components/search-modal.tsx` + `/api/search` 라우트, (site) 레이아웃에 마운트 — writing-list의 로컬 ⌘K 핸들러는 제거됨), Footer/say-hi에 실제 프로필 URL(github.com/monte-kim, linkedin.com/in/monte-kim).
 
 미완료:
 1. **Vercel 배포** — Monte 계정 필요: vercel.com에서 GitHub 레포 import → 환경 변수는 Supabase 연결 후 등록. (배포 자체는 대시보드 클릭 몇 번)
 2. Monte 작업: Supabase 프로젝트 생성/연결, GitHub Actions secrets 등록, ko.json 검수, 프로젝트 카드의 실제 저장소 URL/케이스 스터디 링크 교체
 
-Supabase: **아직 미연결** (Monte가 계정/프로젝트 생성 예정). 연결 절차: 프로젝트 생성(Seoul 리전) → SQL Editor에 마이그레이션 **3개 순서대로** 실행(init → record_view → storage) → Authentication에서 관리자 사용자 1명 생성(+ Sign-ups 비활성화) → Settings→API에서 URL/anon/service_role 복사 → `.env.example` 참고해 `.env.local` 작성(`IP_HASH_SALT`는 `openssl rand -hex 32`). 연결 전까지는 폴백 샘플 데이터로 동작(admin은 read-only 프리뷰).
+Supabase: **아직 미연결** (Monte가 계정/프로젝트 생성 예정). 연결 절차: 프로젝트 생성(Seoul 리전) → SQL Editor에 마이그레이션 **3개 순서대로** 실행(init → record_view → storage) → Authentication에서 관리자 사용자 1명 생성(+ Sign-ups 비활성화) → Settings→API Keys에서 URL/Publishable key/Secret key 복사 (**새 키 체계 사용** — env 변수명도 `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`/`SUPABASE_SECRET_KEY`) → `.env.example` 참고해 `.env.local` 작성(`IP_HASH_SALT`는 `openssl rand -hex 32`). 연결 전까지는 폴백 샘플 데이터로 동작(admin은 read-only 프리뷰).
 
 ## 명령어 & 검증
 
