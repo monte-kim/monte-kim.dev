@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getSupabase } from "./supabase";
 
 export type PostPreview = {
@@ -322,7 +323,10 @@ const FALLBACK_COMMENTS: Record<string, CommentItem[]> = {
   ],
 };
 
-export async function getPostDetail(slug: string): Promise<PostDetail | null> {
+// cache(): generateMetadata and the page both call this per request
+export const getPostDetail = cache(async function getPostDetail(
+  slug: string
+): Promise<PostDetail | null> {
   const fallback = (): PostDetail | null => {
     const item = FALLBACK_LIST.find((post) => post.slug === slug);
     if (!item) return null;
@@ -374,7 +378,7 @@ export async function getPostDetail(slug: string): Promise<PostDetail | null> {
   } catch {
     return fallback();
   }
-}
+});
 
 export async function getComments(slug: string): Promise<CommentItem[]> {
   const supabase = getSupabase();

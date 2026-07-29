@@ -25,7 +25,9 @@ const SITE_DESCRIPTION =
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostDetail(slug);
-  if (!post) return { title: "monte-kim.dev" };
+  // metadata runs before streaming starts, so this returns a real 404 status
+  // (notFound() in the page body would stream a 404 UI with a 200 code)
+  if (!post) notFound();
   // fall back to the site line when the auto-excerpt is missing or too thin
   const description =
     post.excerptEn && post.excerptEn.length >= 40
