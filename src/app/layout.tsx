@@ -18,9 +18,15 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://monte-kim.dev"),
   title: "monte-kim.dev — Tae Hwan \"Monte\" Kim",
   description:
     "Software engineer in Seoul, moving to the UK in October 2026. Spring Boot APIs on AWS, Next.js consoles on top, and writing about what breaks along the way.",
+  openGraph: {
+    siteName: "monte-kim.dev",
+    images: [{ url: "/api/og", width: 1200, height: 630 }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default async function RootLayout({

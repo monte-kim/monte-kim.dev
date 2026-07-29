@@ -30,13 +30,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.titleEn,
       description: post.excerptEn ?? undefined,
       type: "article",
-      ...(post.coverUrl && {
-        images: [{ url: post.coverUrl, width: 1200, height: 630 }],
-      }),
+      images: [
+        {
+          // uploaded cover wins; otherwise the generated card
+          url: post.coverUrl ?? `/api/og?slug=${encodeURIComponent(slug)}`,
+          width: 1200,
+          height: 630,
+        },
+      ],
     },
-    twitter: {
-      card: post.coverUrl ? "summary_large_image" : "summary",
-    },
+    twitter: { card: "summary_large_image" },
   };
 }
 

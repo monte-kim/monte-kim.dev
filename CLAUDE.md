@@ -55,7 +55,8 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 - `.env.local`은 회사 맥북에만 존재. 다른 머신에서는 대시보드에서 값 복사해 재생성.
 - 폴백 샘플 데이터는 이제 프로덕션에서 안 보임(실제 발행 글 존재) — env 없는 로컬 개발에서만 등장.
 
-- 커버 이미지 (화면 2i/2j/3e, 2026-07-29) — **A안**: 목록/홈은 텍스트 유지, 커버는 상세+OG만. `compressCover()`가 1200×630 센터 크롭+JPEG 압축(크롭 에디터 없음), 에디터 상태 3종(없음/업로드 중[진행바+압축 캡션+Cancel]/업로드됨[hover·tap Replace/Remove + 배지]), 상세 페이지 메타 아래 aspect 1200/630 hairline 보더(다크 자동), `og:image`+twitter card는 커버 있을 때만. 커버 존재 시 메타 하단 마진이 28/20px로 조정됨(디자인 값).
+- 커버 이미지 (화면 2i/2j/3e, 2026-07-29) — **A안**: 목록/홈은 텍스트 유지, 커버는 상세+OG만. `compressCover()`가 1200×630 센터 크롭+JPEG 압축(크롭 에디터 없음), 에디터 상태 3종(없음/업로드 중[진행바+압축 캡션+Cancel]/업로드됨[hover·tap Replace/Remove + 배지]), 상세 페이지 메타 아래 aspect 1200/630 hairline 보더(다크 자동). 커버 존재 시 메타 하단 마진이 28/20px로 조정됨(디자인 값).
+- **동적 OG 카드** (`src/app/api/og/route.tsx`, edge) — 사이트 디자인 언어로 만든 1200×630 카드. `/api/og`=사이트 기본 카드(루트 layout 기본 og:image), `/api/og?slug=`=포스트 카드(태그 칩·제목·날짜·읽기시간, 제목 길이별 폰트 스케일 64/54/46). 우선순위: **업로드 커버 > 동적 카드**. 폰트는 `public/fonts/og/`의 woff를 런타임 fetch (Instrument Sans 500/700, JetBrains Mono 400, 한글 제목 감지 시에만 Noto Sans KR 700 로딩). `metadataBase=https://monte-kim.dev` 루트 layout에 설정됨.
 
 미완료/백로그:
 1. ko.json 한국어 카피 검수 (Monte)
