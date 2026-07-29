@@ -85,7 +85,7 @@ export function TocMobileBar({ items, title }: { items: TocItem[]; title: string
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 xl:hidden">
       {open && (
         <div className="border-t border-hairline bg-surface px-6 py-3">
           <div className="flex flex-col gap-[10px] border-l border-hairline">

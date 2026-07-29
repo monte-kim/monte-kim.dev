@@ -62,8 +62,9 @@ export default async function PostPage({ params }: Props) {
   return (
     <>
       <ViewTracker slug={post.slug} />
-      <div className="mx-auto grid max-w-[960px] grid-cols-1 px-6 pb-[92px] pt-7 md:grid-cols-[1fr_220px] md:gap-12 md:px-10 md:pb-16 md:pt-14">
-        <article className="min-w-0">
+      {/* article column sits at true page center; TOC rail floats to its right (xl+) */}
+      <div className="relative px-6 pb-[92px] pt-7 md:px-10 md:pt-14 xl:pb-16">
+        <article className="mx-auto min-w-0 max-w-[720px]">
           {/* breadcrumb */}
           <Link
             href="/writing"
@@ -138,9 +139,11 @@ export default async function PostPage({ params }: Props) {
           />
         </article>
 
-        {/* TOC right rail — desktop */}
-        <aside className="hidden pt-[120px] md:block">
-          <TocRail items={toc} />
+        {/* TOC right rail — wide screens only; narrower widths get the bottom bar */}
+        <aside className="absolute bottom-0 top-0 hidden w-[220px] xl:left-[calc(50%+408px)] xl:block">
+          <div className="h-full pt-[176px]">
+            <TocRail items={toc} />
+          </div>
         </aside>
       </div>
 

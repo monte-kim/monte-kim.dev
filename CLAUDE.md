@@ -35,7 +35,7 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 - `/` 홈 (화면 2a, 모바일 3a, 다크 3d) — 픽셀 매칭 검증됨
 - `/writing` (화면 2e) — 검색(⌘K 포커스), 태그 칩 필터(개수는 데이터에서 계산), 페이지네이션(5개/페이지), `writing-list.tsx` 클라이언트 컴포넌트
 - DB 마이그레이션: `supabase/migrations/20260728000000_init.sql` (posts/tags/post_tags/post_views/view_events/comments/messages + RLS) + `20260728010000_record_view.sql` (조회수 원자적 기록 함수, service role 전용)
-- `/writing/[slug]` — 화면 2f/3b. 콘텐츠는 Tiptap 호환 JSON → `src/components/post/post-content.tsx` 렌더러(에디터 프리뷰에서 재사용 예정). TOC(`src/lib/toc.ts` + `post/toc.tsx` 데스크톱 레일/모바일 하단 바), 조회수(`actions/views.ts` — 솔티드 SHA-256 IP 해시, `IP_HASH_SALT` env, `record_post_view` RPC), 댓글(`actions/comments.ts` — 허니팟 `website` 필드 + 인스턴스별 레이트 리밋 5개/10분, `post/comments-section.tsx`). 쓰기는 `src/lib/supabase-admin.ts`(service role, 서버 전용) 경유. env 없으면 조회수/댓글 쓰기는 no-op, 읽기는 폴백 샘플.
+- `/writing/[slug]` — 화면 2f/3b. **레이아웃은 2f에서 의도적으로 수정됨(Monte 요청, 2026-07-29)**: 본문 720px 칼럼을 화면 정중앙에 두고 TOC 레일은 `xl`(1280px+)에서만 본문 오른쪽 바깥(absolute, 50%+408px)에 표시. md~xl 구간은 TOC 레일 대신 모바일 하단 바(`xl:hidden`) 사용. 콘텐츠는 Tiptap 호환 JSON → `src/components/post/post-content.tsx` 렌더러(에디터 프리뷰에서 재사용 예정). TOC(`src/lib/toc.ts` + `post/toc.tsx` 데스크톱 레일/모바일 하단 바), 조회수(`actions/views.ts` — 솔티드 SHA-256 IP 해시, `IP_HASH_SALT` env, `record_post_view` RPC), 댓글(`actions/comments.ts` — 허니팟 `website` 필드 + 인스턴스별 레이트 리밋 5개/10분, `post/comments-section.tsx`). 쓰기는 `src/lib/supabase-admin.ts`(service role, 서버 전용) 경유. env 없으면 조회수/댓글 쓰기는 no-op, 읽기는 폴백 샘플.
 
 - `/say-hi` — 화면 2d. `say-hi-form.tsx`(클라이언트) + `actions/messages.ts`(허니팟 + 레이트 리밋 3개/10분, messages insert, Resend 알림은 `RESEND_API_KEY` 있을 때만 fetch로 발송 — SDK 미사용). 레이트 리밋은 `src/lib/rate-limit.ts` 공유 유틸(인스턴스별, comments와 공용). 블로그 연락 이메일은 monte6198@gmail.com.
 
