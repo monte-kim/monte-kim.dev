@@ -45,11 +45,22 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 - `/about` — 화면 2c. **CV 다운로드 버튼은 Monte 결정으로 제외** (Say hi CTA만, filled 스타일로 승격). 타임라인/툴 칩 정적, 카피 i18n.
 - 인프라 일부: `.github/workflows/supabase-ping.yml` (스케줄 월·목, secrets `SUPABASE_URL`/`SUPABASE_PUBLISHABLE_KEY` 필요 — 미설정 시 스킵), ⌘K 전역 검색 모달(`src/components/search-modal.tsx` + `/api/search` 라우트, (site) 레이아웃에 마운트 — writing-list의 로컬 ⌘K 핸들러는 제거됨), Footer/say-hi에 실제 프로필 URL(github.com/monte-kim, linkedin.com/in/monte-kim).
 
-미완료:
-1. **Vercel 배포** — Monte 계정 필요: vercel.com에서 GitHub 레포 import → 환경 변수는 Supabase 연결 후 등록. (배포 자체는 대시보드 클릭 몇 번)
-2. Monte 작업: Supabase 프로젝트 생성/연결, GitHub Actions secrets 등록, ko.json 검수, 프로젝트 카드의 실제 저장소 URL/케이스 스터디 링크 교체
+## 운영 환경 (2026-07-29부터 라이브)
 
-Supabase: **아직 미연결** (Monte가 계정/프로젝트 생성 예정). 연결 절차: 프로젝트 생성(Seoul 리전) → SQL Editor에 마이그레이션 **3개 순서대로** 실행(init → record_view → storage) → Authentication에서 관리자 사용자 1명 생성(+ Sign-ups 비활성화) → Settings→API Keys에서 URL/Publishable key/Secret key 복사 (**새 키 체계 사용** — env 변수명도 `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`/`SUPABASE_SECRET_KEY`) → `.env.example` 참고해 `.env.local` 작성(`IP_HASH_SALT`는 `openssl rand -hex 32`). 연결 전까지는 폴백 샘플 데이터로 동작(admin은 read-only 프리뷰).
+- **프로덕션**: https://monte-kim.dev (Vercel, 커스텀 도메인 + www→루트 리다이렉트). 도메인 레지스트라는 Spaceship, **네임서버는 Vercel**(ns1/ns2.vercel-dns.com)이라 DNS 레코드는 Vercel 대시보드에서 관리.
+- **Supabase 연결 완료** — 리전 London. 마이그레이션 3개 실행됨, 관리자 계정 1개 생성 + Sign-ups 비활성화됨. 키는 **새 키 체계**(Publishable/Secret, env: `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`/`SUPABASE_SECRET_KEY`). E2E 검증 완료(조회수 RPC/댓글/폼/admin 발행).
+- **Resend 연결 완료** — 도메인 monte-kim.dev 인증(eu-west-1 Ireland), 발신 `notify@monte-kim.dev`, say-hi 알림 → monte6198@gmail.com 수신 확인됨.
+- **Vercel Functions 리전은 London(lhr1) 권장** (Supabase와 동일 지역).
+- 핑 크론 동작 확인됨 (Actions secrets 등록됨).
+- `.env.local`은 회사 맥북에만 존재. 다른 머신에서는 대시보드에서 값 복사해 재생성.
+- 폴백 샘플 데이터는 이제 프로덕션에서 안 보임(실제 발행 글 존재) — env 없는 로컬 개발에서만 등장.
+
+미완료/백로그:
+1. ko.json 한국어 카피 검수 (Monte)
+2. `/projects` 케이스 스터디 링크가 폴백 slug를 가리킴 → 실제 글 발행 후 교체 (현재 404). Muroom/News classifier GitHub 링크도 실제 저장소로 교체
+3. 에디터 "Add cover" + 공개 페이지 커버 UI (보류)
+4. admin 댓글 모더레이션/받은 메시지함 UI (DB 정책은 준비됨)
+5. admin에 글 삭제 기능 없음 — 삭제는 Supabase Table Editor에서
 
 ## 명령어 & 검증
 

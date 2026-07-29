@@ -25,7 +25,7 @@ function slugify(title: string): string {
   return (
     title
       .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/[^a-z0-9가-힣\s-]/g, "")
       .trim()
       .replace(/\s+/g, "-")
       .slice(0, 80) || "untitled"
