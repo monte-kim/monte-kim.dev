@@ -58,11 +58,11 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 - 커버 이미지 (화면 2i/2j/3e, 2026-07-29) — **A안**: 목록/홈은 텍스트 유지, 커버는 상세+OG만. `compressCover()`가 1200×630 센터 크롭+JPEG 압축(크롭 에디터 없음), 에디터 상태 3종(없음/업로드 중[진행바+압축 캡션+Cancel]/업로드됨[hover·tap Replace/Remove + 배지]), 상세 페이지 메타 아래 aspect 1200/630 hairline 보더(다크 자동). 커버 존재 시 메타 하단 마진이 28/20px로 조정됨(디자인 값).
 - **동적 OG 카드** (`src/app/api/og/route.tsx`, edge) — 사이트 디자인 언어로 만든 1200×630 카드. `/api/og`=사이트 기본 카드(루트 layout 기본 og:image), `/api/og?slug=`=포스트 카드(태그 칩·제목·날짜·읽기시간, 제목 길이별 폰트 스케일 64/54/46). 우선순위: **업로드 커버 > 동적 카드**. 폰트는 `public/fonts/og/`의 woff를 런타임 fetch (Instrument Sans 500/700, JetBrains Mono 400, 한글 제목 감지 시에만 Noto Sans KR 700 로딩). `metadataBase=https://monte-kim.dev` 루트 layout에 설정됨.
 
+- admin 모더레이션 (2026-07-29) — `/admin/comments`(댓글 삭제, author/reply 배지, 글 링크), `/admin/messages`(say-hi 메시지함, Reply=mailto/Delete), posts 목록에 글 삭제(Storage 이미지 정리 포함, confirm 후 cascade). 탭 네비 `admin-nav.tsx`, 삭제 버튼 `delete-button.tsx`(bound 서버 액션). **메시지 삭제만 service role 사용**(messages에 RLS delete 정책이 없어서 — 세션 검증 후 admin 클라이언트로 삭제).
+
 미완료/백로그:
 1. ko.json 한국어 카피 검수 (Monte)
 2. `/projects` 케이스 스터디 링크가 폴백 slug를 가리킴 → 실제 글 발행 후 교체 (현재 404). Muroom/News classifier GitHub 링크도 실제 저장소로 교체
-3. admin 댓글 모더레이션/받은 메시지함 UI (DB 정책은 준비됨)
-4. admin에 글 삭제 기능 없음 — 삭제는 Supabase Table Editor에서
 
 ## 명령어 & 검증
 

@@ -2,6 +2,25 @@ import type { PostDoc } from "./posts";
 import { getWritingIndex, getPostDetail } from "./posts";
 import { getSupabaseServer, isSupabaseConfigured } from "./supabase-server";
 
+export type AdminComment = {
+  id: string;
+  authorName: string;
+  isAuthor: boolean;
+  body: string;
+  createdAt: string;
+  postTitle: string;
+  postSlug: string;
+  isReply: boolean;
+};
+
+export type AdminMessage = {
+  id: string;
+  name: string;
+  email: string;
+  body: string;
+  createdAt: string;
+};
+
 export type AdminPostListItem = {
   id: string;
   slug: string;
@@ -98,4 +117,88 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
       )
       .filter((name: string | undefined): name is string => Boolean(name)),
   };
+}
+
+/** Preview-mode sample rows so the moderation UI can be built/checked without env. */
+const FALLBACK_ADMIN_COMMENTS: AdminComment[] = [
+  {
+    id: "c1",
+    authorName: "James P.",
+    isAuthor: false,
+    body: "Did you consider TimescaleDB continuous aggregates before rolling your own table?",
+    createdAt: "2026-07-26T09:00:00Z",
+    postTitle: "Making analytics 480× faster with a pre-aggregated data model",
+    postSlug: "analytics-480x-faster-pre-aggregation",
+    isReply: false,
+  },
+  {
+    id: "c2",
+    authorName: "Tae Hwan",
+    isAuthor: true,
+    body: "Yes — we actually use TimescaleDB elsewhere. Here the bucket logic needed business rules that CAGGs couldn't express cleanly.",
+    createdAt: "2026-07-27T09:00:00Z",
+    postTitle: "Making analytics 480× faster with a pre-aggregated data model",
+    postSlug: "analytics-480x-faster-pre-aggregation",
+    isReply: true,
+  },
+];
+
+const FALLBACK_ADMIN_MESSAGES: AdminMessage[] = [
+  {
+    id: "m1",
+    name: "Jane Recruiter",
+    email: "jane@company.co.uk",
+    body: "We're looking for a backend engineer who has shipped production analytics at scale — your 480× write-up caught our eye. Are you open to a chat next week?",
+    createdAt: "2026-07-28T14:30:00Z",
+  },
+];
+
+export async function getAdminComments(): Promise<AdminComment[]> {
+  if (!isSupabaseConfigured()) return FALLBACK_ADMIN_COMMENTS;
+
+  const supabase = await getSupabaseServer();
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .from("comments")
+    .select("id,author_name,is_author,body,created_at,parent_id,posts(title_en,slug)")
+    .order("created_at", { ascending: false })
+    .limit(200);
+
+  if (error || !data) return [];
+  return data.map((row) => {
+    const post = Array.isArray(row.posts) ? row.posts[0] : row.posts;
+    return {
+      id: row.id,
+      authorName: row.author_name,
+      isAuthor: row.is_author,
+      body: row.body,
+      createdAt: row.created_at,
+      postTitle: post?.title_en || "Untitled",
+      postSlug: post?.slug ?? "",
+      isReply: Boolean(row.parent_id),
+    };
+  });
+}
+
+export async function getAdminMessages(): Promise<AdminMessage[]> {
+  if (!isSupabaseConfigured()) return FALLBACK_ADMIN_MESSAGES;
+
+  const supabase = await getSupabaseServer();
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .from("messages")
+    .select("id,name,email,body,created_at")
+    .order("created_at", { ascending: false })
+    .limit(200);
+
+  if (error || !data) return [];
+  return data.map((row) => ({
+    id: row.id,
+    name: row.name,
+    email: row.email,
+    body: row.body,
+    createdAt: row.created_at,
+  }));
 }

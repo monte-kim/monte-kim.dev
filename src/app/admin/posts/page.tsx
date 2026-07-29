@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { createDraft } from "@/app/actions/admin";
+import { createDraft, deletePost } from "@/app/actions/admin";
 import { signOut } from "@/app/actions/auth";
 import { getAdminPosts } from "@/lib/admin-posts";
 import { isSupabaseConfigured } from "@/lib/supabase-server";
+import { AdminNav } from "../admin-nav";
+import { DeleteButton } from "../delete-button";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +26,7 @@ export default async function AdminPostsPage() {
 
   return (
     <div className="mx-auto max-w-[720px] px-6 pb-16 pt-10 md:px-10">
-      <div className="mb-7 flex items-center justify-between">
+      <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h1 className="text-[24px] font-bold tracking-[-0.6px]">Posts</h1>
           {!configured && (
@@ -65,32 +67,41 @@ export default async function AdminPostsPage() {
         </div>
       </div>
 
+      <AdminNav active="posts" />
+
       <div className="flex flex-col">
         {posts.map((post, i) => (
-          <Link
+          <div
             key={post.id}
-            href={`/admin/editor/${post.id}`}
-            className={`group flex items-center justify-between gap-4 py-4 ${
+            className={`flex items-center justify-between gap-4 py-4 ${
               i < posts.length - 1 ? "border-b border-hairline" : ""
             }`}
           >
-            <div className="min-w-0">
+            <Link
+              href={`/admin/editor/${post.id}`}
+              className="group min-w-0 flex-1"
+            >
               <div className="truncate text-[15.5px] font-semibold group-hover:underline">
                 {post.titleEn || "Untitled"}
               </div>
               <div className="mt-[2px] font-mono text-[12px] text-placeholder">
                 {post.slug}
               </div>
-            </div>
+            </Link>
             <div className="flex flex-none items-center gap-3">
               {post.publishedAt && (
-                <span className="font-mono text-[12px] text-placeholder">
+                <span className="hidden font-mono text-[12px] text-placeholder md:inline">
                   {post.publishedAt.slice(0, 10)}
                 </span>
               )}
               <StatusPill status={post.status} />
+              <DeleteButton
+                action={deletePost.bind(null, post.id)}
+                confirmText={`Delete "${post.titleEn || "Untitled"}"? Comments, views and uploaded images are removed with it. This cannot be undone.`}
+                disabled={!configured}
+              />
             </div>
-          </Link>
+          </div>
         ))}
         {posts.length === 0 && (
           <div className="py-10 text-center text-[14px] text-muted">

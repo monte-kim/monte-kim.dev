@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import type { PostDoc } from "@/lib/posts";
 import { nodeText } from "@/lib/toc";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { getSupabaseServer } from "@/lib/supabase-server";
 
 export type AdminActionResult =
@@ -194,4 +195,80 @@ export async function uploadImage(
 
   const { data } = supabase.storage.from("post-images").getPublicUrl(path);
   return { ok: true, url: data.publicUrl };
+}
+
+export async function deletePost(id: string): Promise<AdminActionResult> {
+  const { supabase, error } = await getAuthedClient();
+  if (!supabase) return { ok: false, error };
+
+  const { data: post } = await supabase
+    .from("posts")
+    .select("slug")
+    .eq("id", id)
+    .maybeSingle();
+
+  // best-effort: remove this post's uploaded images from Storage
+  try {
+    const { data: objects } = await supabase.storage
+      .from("post-images")
+      .list(id, { limit: 100 });
+    if (objects && objects.length) {
+      await supabase.storage
+        .from("post-images")
+        .remove(objects.map((o) => `${id}/${o.name}`));
+    }
+  } catch {
+    // storage cleanup failure must not block the delete
+  }
+
+  const { error: deleteError } = await supabase
+    .from("posts")
+    .delete()
+    .eq("id", id);
+  if (deleteError) return FAIL;
+
+  revalidatePath("/");
+  revalidatePath("/writing");
+  if (post?.slug) revalidatePath(`/writing/${post.slug}`);
+  return { ok: true };
+}
+
+export async function deleteComment(id: string): Promise<AdminActionResult> {
+  const { supabase, error } = await getAuthedClient();
+  if (!supabase) return { ok: false, error };
+
+  const { data: row } = await supabase
+    .from("comments")
+    .select("posts(slug)")
+    .eq("id", id)
+    .maybeSingle();
+
+  // replies cascade via parent_id FK
+  const { error: deleteError } = await supabase
+    .from("comments")
+    .delete()
+    .eq("id", id);
+  if (deleteError) return FAIL;
+
+  const post = Array.isArray(row?.posts) ? row?.posts[0] : row?.posts;
+  if (post?.slug) revalidatePath(`/writing/${post.slug}`);
+  revalidatePath("/writing");
+  return { ok: true };
+}
+
+export async function deleteMessage(id: string): Promise<AdminActionResult> {
+  // RLS has no delete policy on messages (writes are service-role only),
+  // so verify the admin session first, then delete with the service role.
+  const { supabase, error } = await getAuthedClient();
+  if (!supabase) return { ok: false, error };
+
+  const admin = getSupabaseAdmin();
+  if (!admin) return { ok: false, error: "unavailable" };
+
+  const { error: deleteError } = await admin
+    .from("messages")
+    .delete()
+    .eq("id", id);
+  if (deleteError) return FAIL;
+  return { ok: true };
 }
