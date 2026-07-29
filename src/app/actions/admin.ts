@@ -68,7 +68,12 @@ export async function createDraft(): Promise<AdminActionResult> {
 
 export async function savePost(
   id: string,
-  payload: { titleEn: string; content: PostDoc; tags: string[] }
+  payload: {
+    titleEn: string;
+    content: PostDoc;
+    tags: string[];
+    coverUrl: string | null;
+  }
 ): Promise<AdminActionResult> {
   const { supabase, error } = await getAuthedClient();
   if (!supabase) return { ok: false, error };
@@ -78,6 +83,7 @@ export async function savePost(
     .update({
       title_en: payload.titleEn,
       content: payload.content,
+      cover_url: payload.coverUrl,
       read_minutes: readMinutes(payload.content),
       excerpt_en: excerptOf(payload.content),
     })

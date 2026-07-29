@@ -210,7 +210,10 @@ export type ContentNode = {
 
 export type PostDoc = { type: "doc"; content: ContentNode[] };
 
-export type PostDetail = PostListItem & { content: PostDoc };
+export type PostDetail = PostListItem & {
+  content: PostDoc;
+  coverUrl: string | null;
+};
 
 export type CommentItem = {
   id: string;
@@ -327,6 +330,7 @@ export async function getPostDetail(slug: string): Promise<PostDetail | null> {
       ...item,
       tags: FALLBACK_DETAIL_TAGS[slug] ?? item.tags,
       content: FALLBACK_CONTENT[slug] ?? fallbackDocFor(item),
+      coverUrl: null,
     };
   };
 
@@ -337,7 +341,7 @@ export async function getPostDetail(slug: string): Promise<PostDetail | null> {
     const { data, error } = await supabase
       .from("posts")
       .select(
-        "slug,title_en,title_ko,excerpt_en,excerpt_ko,content,published_at,read_minutes,post_views(count),post_tags(tags(name)),comments(count)"
+        "slug,title_en,title_ko,excerpt_en,excerpt_ko,content,cover_url,published_at,read_minutes,post_views(count),post_tags(tags(name)),comments(count)"
       )
       .eq("status", "published")
       .eq("slug", slug)
@@ -365,6 +369,7 @@ export async function getPostDetail(slug: string): Promise<PostDetail | null> {
         ? Number(data.comments[0]?.count ?? 0)
         : 0,
       content: (data.content as PostDoc) ?? { type: "doc", content: [] },
+      coverUrl: data.cover_url ?? null,
     };
   } catch {
     return fallback();

@@ -14,6 +14,7 @@ export type AdminPostListItem = {
 export type AdminPost = AdminPostListItem & {
   content: PostDoc;
   tags: string[];
+  coverUrl: string | null;
 };
 
 /**
@@ -66,6 +67,7 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
       updatedAt: null,
       content: post.content,
       tags: post.tags,
+      coverUrl: post.coverUrl,
     };
   }
 
@@ -75,7 +77,7 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "id,slug,title_en,status,published_at,updated_at,content,post_tags(tags(name))"
+      "id,slug,title_en,status,published_at,updated_at,content,cover_url,post_tags(tags(name))"
     )
     .eq("id", id)
     .maybeSingle();
@@ -89,6 +91,7 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
     publishedAt: data.published_at,
     updatedAt: data.updated_at,
     content: (data.content as PostDoc) ?? { type: "doc", content: [] },
+    coverUrl: data.cover_url ?? null,
     tags: (data.post_tags ?? [])
       .map((pt: { tags: { name: string } | { name: string }[] | null }) =>
         Array.isArray(pt.tags) ? pt.tags[0]?.name : pt.tags?.name

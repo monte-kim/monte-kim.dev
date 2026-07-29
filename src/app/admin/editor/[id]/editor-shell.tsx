@@ -33,10 +33,12 @@ import {
   ImageIcon,
   LinkIcon,
   PlusIcon,
+  RefreshIcon,
+  TrashIcon,
 } from "@/components/icons";
 import { PostContent } from "@/components/post/post-content";
 import type { AdminPost } from "@/lib/admin-posts";
-import { compressImage } from "@/lib/compress-image";
+import { compressCover, compressImage } from "@/lib/compress-image";
 import type { PostDoc } from "@/lib/posts";
 import { SlashCommand } from "./slash-command";
 
@@ -48,6 +50,12 @@ function sanitizeDoc(doc: PostDoc): PostDoc {
     ...doc,
     content: doc.content.filter((node) => node.type !== "figurePlaceholder"),
   };
+}
+
+function formatBytes(n: number): string {
+  return n >= 1024 * 1024
+    ? `${(n / 1024 / 1024).toFixed(1)}MB`
+    : `${Math.round(n / 1024)}KB`;
 }
 
 function savedLabel(lastSaved: Date | null, now: number): string {
@@ -76,10 +84,18 @@ export function EditorShell({
   const [now, setNow] = useState(() => Date.now());
   const [previewDoc, setPreviewDoc] = useState<PostDoc>(sanitizeDoc(post.content));
 
+  // cover (design 2i): idle → compressing → uploading → idle
+  const [coverUrl, setCoverUrl] = useState(post.coverUrl);
+  const [coverPhase, setCoverPhase] = useState<"idle" | "compressing" | "uploading">("idle");
+  const [coverBytes, setCoverBytes] = useState<{ orig: number; out: number | null }>({ orig: 0, out: null });
+  const [coverActions, setCoverActions] = useState(false); // mobile: tap reveals
+  const coverCancelRef = useRef(false);
+  const coverInputRef = useRef<HTMLInputElement>(null);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const stateRef = useRef({ title, tags });
-  stateRef.current = { title, tags };
+  const stateRef = useRef({ title, tags, coverUrl });
+  stateRef.current = { title, tags, coverUrl };
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -112,6 +128,7 @@ export function EditorShell({
         titleEn: stateRef.current.title,
         content: editorInstance.getJSON() as PostDoc,
         tags: stateRef.current.tags,
+        coverUrl: stateRef.current.coverUrl,
       });
       setSaving(false);
       if (result.ok) setLastSaved(new Date());
@@ -160,6 +177,42 @@ export function EditorShell({
       setStatus(status === "published" ? "draft" : "published");
       router.refresh();
     }
+  };
+
+  const pickCover = async (file: File) => {
+    if (!configured) return;
+    coverCancelRef.current = false;
+    setCoverPhase("compressing");
+    setCoverBytes({ orig: file.size, out: null });
+    try {
+      const { file: compressed } = await compressCover(file);
+      if (coverCancelRef.current) return;
+      setCoverBytes({ orig: file.size, out: compressed.size });
+      setCoverPhase("uploading");
+      const formData = new FormData();
+      formData.append("file", compressed);
+      const result = await uploadImage(post.id, formData);
+      if (coverCancelRef.current) return;
+      if ("url" in result) {
+        setCoverUrl(result.url);
+        scheduleSave();
+      }
+    } catch {
+      // compression/upload failed — stay coverless
+    } finally {
+      if (!coverCancelRef.current) setCoverPhase("idle");
+    }
+  };
+
+  const cancelCover = () => {
+    coverCancelRef.current = true;
+    setCoverPhase("idle");
+  };
+
+  const removeCover = () => {
+    setCoverUrl(null);
+    setCoverActions(false);
+    scheduleSave();
   };
 
   const pickImage = async (file: File) => {
@@ -307,12 +360,31 @@ export function EditorShell({
           e.target.value = "";
         }}
       />
+      <input
+        ref={coverInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) void pickCover(file);
+          e.target.value = "";
+        }}
+      />
 
       {mode === "preview" ? (
         <article className="mx-auto max-w-[720px] px-6 pb-16 pt-8 md:px-10 md:pt-14">
           <h1 className="mb-4 text-pretty text-[24px] font-bold leading-[1.2] tracking-[-0.6px] md:text-[34px] md:leading-[1.15] md:tracking-[-1px]">
             {title || "Untitled"}
           </h1>
+          {coverUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={coverUrl}
+              alt=""
+              className="mb-5 aspect-[1200/630] w-full rounded-[9px] border border-hairline object-cover md:mb-8 md:rounded-[10px]"
+            />
+          )}
           <PostContent doc={previewDoc} />
         </article>
       ) : (
@@ -353,16 +425,91 @@ export function EditorShell({
                 Add tag
               </button>
             )}
-            <button
-              type="button"
-              disabled
-              title="Coming soon"
-              className="inline-flex items-center gap-[5px] rounded-[4px] border border-dashed border-border px-2 py-[3px] font-mono text-[11px] text-muted opacity-60"
-            >
-              <ImageIcon size={11} />
-              Add cover
-            </button>
+            {!coverUrl && coverPhase === "idle" && (
+              <button
+                type="button"
+                disabled={!configured}
+                onClick={() => coverInputRef.current?.click()}
+                className="inline-flex items-center gap-[5px] rounded-[4px] border border-dashed border-border px-2 py-[3px] font-mono text-[11px] text-muted hover:text-ink disabled:opacity-60"
+              >
+                <ImageIcon size={11} />
+                Add cover
+              </button>
+            )}
           </div>
+
+          {/* cover zone (design 2i) — appears at final 1.91:1 size, no layout shift */}
+          {coverPhase !== "idle" && (
+            <div className="mb-[14px] flex aspect-[1200/630] flex-col items-center justify-center gap-[10px] rounded-[9px] border border-hairline bg-subtle md:gap-3 md:rounded-[10px]">
+              <div className="h-1 w-[55%] overflow-hidden rounded-full bg-hairline md:w-[60%]">
+                <div
+                  className={`h-full rounded-full bg-ink transition-all duration-500 ${
+                    coverPhase === "compressing" ? "w-2/5" : "w-4/5"
+                  }`}
+                />
+              </div>
+              <div className="font-mono text-[10.5px] text-muted md:text-[11px]">
+                {coverPhase === "compressing"
+                  ? `Compressing… ${formatBytes(coverBytes.orig)}`
+                  : `Uploading… ${formatBytes(coverBytes.orig)} → ${formatBytes(coverBytes.out ?? 0)}`}
+              </div>
+              <button
+                type="button"
+                onClick={cancelCover}
+                className="rounded-[6px] border border-border px-3 py-1 text-[12px] font-semibold text-muted hover:text-ink"
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+          {coverUrl && coverPhase === "idle" && (
+            <div
+              className="group relative mb-[14px] overflow-hidden rounded-[9px] border border-hairline md:rounded-[10px]"
+              onClick={() => setCoverActions((v) => !v)}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={coverUrl}
+                alt="Post cover"
+                className="aspect-[1200/630] w-full object-cover"
+              />
+              <div
+                className={`absolute right-[10px] top-[10px] flex gap-[6px] transition-opacity group-hover:opacity-100 ${
+                  coverActions ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    coverInputRef.current?.click();
+                  }}
+                  className="inline-flex items-center gap-[5px] rounded-[6px] bg-[rgba(26,26,24,0.85)] px-3 py-[5px] text-[12px] font-semibold text-[#FBFBFA]"
+                >
+                  <RefreshIcon size={11} />
+                  Replace
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeCover();
+                  }}
+                  className="inline-flex items-center gap-[5px] rounded-[6px] bg-[rgba(26,26,24,0.85)] px-3 py-[5px] text-[12px] font-semibold text-[#FBFBFA]"
+                >
+                  <TrashIcon size={11} />
+                  Remove
+                </button>
+              </div>
+              <span
+                className={`absolute bottom-[10px] left-[10px] rounded-[4px] border border-border bg-bg px-2 py-[2px] font-mono text-[10.5px] text-muted transition-opacity group-hover:opacity-100 ${
+                  coverActions ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                1200×630 · center crop
+              </span>
+            </div>
+          )}
 
           {/* title */}
           <textarea

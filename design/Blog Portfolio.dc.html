@@ -18,6 +18,147 @@ a { color:#1A1A18; text-decoration:none; } a:hover { color:#6F6E69; }
 </helmet>
 <section style="display:flex; flex-wrap:wrap; gap:56px; padding:64px; align-items:flex-start;">
 
+  <!-- ============ 2i EDITOR COVER STATES ============ -->
+  <div id="2i" style="position:relative; width:1200px; flex:none;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><span style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; background:#1A1A18; color:#FBFBFA; padding:3px 8px; border-radius:4px;">2i</span><span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#6F6E69;">Editor cover — none / uploading / uploaded (1200×630 center crop, no crop editor)</span></div>
+    <div style="background:#FBFBFA; border:1px solid #D9D8D3; border-radius:12px; padding:32px; box-shadow:0 2px 16px rgba(26,26,24,0.06); display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#A3A29C; letter-spacing:0.08em; margin-bottom:14px;">1 · NO COVER (DEFAULT)</div>
+        <div style="border:1px solid #ECEBE7; background:#FFFFFF; border-radius:10px; padding:20px;">
+          <div style="display:flex; gap:10px; margin-bottom:16px;">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#6F6E69; border:1px dashed #D9D8D3; border-radius:4px; padding:3px 8px; display:inline-flex; align-items:center; gap:5px;"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.5v9M3.5 8h9"></path></svg>Add tag</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#6F6E69; border:1px dashed #D9D8D3; border-radius:4px; padding:3px 8px; display:inline-flex; align-items:center; gap:5px;"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"></rect><circle cx="5.5" cy="6.5" r="1"></circle><path d="m2 11 3.5-3 3 2.5L11 8l3 3"></path></svg>Add cover</span>
+          </div>
+          <div style="font-size:22px; font-weight:700; letter-spacing:-0.6px; line-height:1.2;">Making analytics 480× faster…</div>
+          <div style="font-size:13px; color:#A3A29C; margin-top:10px;">Start writing, or press / for blocks…</div>
+        </div>
+        <div style="font-size:12px; color:#6F6E69; line-height:1.6; margin-top:10px;">Dashed chip only — no reserved space. Click or drag an image onto it.</div>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#A3A29C; letter-spacing:0.08em; margin-bottom:14px;">2 · UPLOADING</div>
+        <div style="border:1px solid #ECEBE7; background:#FFFFFF; border-radius:10px; padding:20px;">
+          <div style="border:1px solid #ECEBE7; border-radius:10px; aspect-ratio:1200/630; background:#F4F3F0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; margin-bottom:14px;">
+            <div style="width:60%; height:4px; background:#ECEBE7; border-radius:100px; overflow:hidden;"><div style="width:62%; height:100%; background:#1A1A18; border-radius:100px;"></div></div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#6F6E69;">Compressing… 1.4MB → 288KB</div>
+            <span style="font-size:12px; font-weight:600; color:#6F6E69; border:1px solid #D9D8D3; border-radius:6px; padding:4px 12px;">Cancel</span>
+          </div>
+          <div style="font-size:22px; font-weight:700; letter-spacing:-0.6px; line-height:1.2;">Making analytics 480× faster…</div>
+        </div>
+        <div style="font-size:12px; color:#6F6E69; line-height:1.6; margin-top:10px;">Zone appears at final 1.91:1 size — no layout shift on completion. Client-side compress to &lt;300KB before upload.</div>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#A3A29C; letter-spacing:0.08em; margin-bottom:14px;">3 · UPLOADED (HOVER)</div>
+        <div style="border:1px solid #ECEBE7; background:#FFFFFF; border-radius:10px; padding:20px;">
+          <div style="position:relative; border:1px solid #ECEBE7; border-radius:10px; aspect-ratio:1200/630; background:repeating-linear-gradient(45deg,#F4F3F0,#F4F3F0 10px,#FBFBFA 10px,#FBFBFA 20px); margin-bottom:14px; overflow:hidden;">
+            <div style="position:absolute; top:10px; right:10px; display:flex; gap:6px;">
+              <span style="background:rgba(26,26,24,0.85); color:#FBFBFA; font-size:12px; font-weight:600; padding:5px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:5px;"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="#FBFBFA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 6.5A5.5 5.5 0 0 0 3 5M2.5 9.5A5.5 5.5 0 0 0 13 11"></path><path d="M13.5 2.5v4h-4M2.5 13.5v-4h4"></path></svg>Replace</span>
+              <span style="background:rgba(26,26,24,0.85); color:#FBFBFA; font-size:12px; font-weight:600; padding:5px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:5px;"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="#FBFBFA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h11M6.5 4V2.5h3V4M4 4l.7 9a1 1 0 0 0 1 .9h4.6a1 1 0 0 0 1-.9L12 4"></path></svg>Remove</span>
+            </div>
+            <span style="position:absolute; bottom:10px; left:10px; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#6F6E69; background:#FBFBFA; border:1px solid #D9D8D3; border-radius:4px; padding:2px 8px;">1200×630 · center crop</span>
+          </div>
+          <div style="font-size:22px; font-weight:700; letter-spacing:-0.6px; line-height:1.2;">Making analytics 480× faster…</div>
+        </div>
+        <div style="font-size:12px; color:#6F6E69; line-height:1.6; margin-top:10px;">Overlay actions on hover only. Same image doubles as OG image — no separate upload.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2j POST DETAIL WITH COVER ============ -->
+  <div id="2j" style="position:relative; width:1200px; flex:none;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><span style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; background:#1A1A18; color:#FBFBFA; padding:3px 8px; border-radius:4px;">2j</span><span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#6F6E69;">Post detail with cover — below meta, content width, 1.91:1, 10px radius (A안: 목록/홈은 텍스트 유지)</span></div>
+    <div style="background:#FBFBFA; border:1px solid #D9D8D3; border-radius:12px; overflow:hidden; box-shadow:0 2px 16px rgba(26,26,24,0.06);">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:0 40px; height:60px; border-bottom:1px solid #ECEBE7;">
+        <div style="display:flex; align-items:center; gap:32px;">
+          <div style="display:flex; align-items:center; gap:9px;"><span style="width:26px; height:26px; border:1.5px solid #1A1A18; border-radius:7px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; letter-spacing:-0.5px;">TK</span><span style="font-weight:600; font-size:15px;">monte-kim.dev</span></div>
+          <nav style="display:flex; gap:24px; font-size:14px; color:#6F6E69;"><span>Home</span><span style="color:#1A1A18; font-weight:500;">Writing</span><span>Projects</span><span>About</span></nav>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="display:flex; border:1px solid #D9D8D3; border-radius:6px; overflow:hidden; font-size:12px; font-weight:600;"><span style="padding:4px 9px; background:#1A1A18; color:#FBFBFA;">EN</span><span style="padding:4px 9px; color:#6F6E69;">KO</span></div>
+          <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="#1A1A18" stroke-width="1.5" stroke-linecap="round"><path d="M13.5 9.5A6 6 0 0 1 6.5 2.5a6 6 0 1 0 7 7z"></path></svg>
+          <span style="background:#1A1A18; color:#FBFBFA; font-size:13px; font-weight:600; padding:7px 14px; border-radius:7px;">Say hi</span>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 220px; gap:48px; max-width:960px; margin:0 auto; padding:56px 40px 64px;">
+        <div style="min-width:0;">
+          <div style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#6F6E69; margin-bottom:20px;"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4 3 8l4 4"></path></svg>All posts</div>
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:14px;"><span style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; color:#6F6E69; border:1px solid #ECEBE7; border-radius:4px; padding:2px 7px;">PostgreSQL</span><span style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; color:#6F6E69; border:1px solid #ECEBE7; border-radius:4px; padding:2px 7px;">Performance</span></div>
+          <h1 style="font-size:34px; font-weight:700; letter-spacing:-1px; line-height:1.15; margin:0 0 16px; text-wrap:pretty;">Making analytics 480× faster with a pre-aggregated data model</h1>
+          <div style="display:flex; gap:16px; align-items:center; font-size:13px; color:#6F6E69; padding-bottom:24px; border-bottom:1px solid #ECEBE7; margin-bottom:28px;">
+            <span style="display:inline-flex; align-items:center; gap:6px;"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="1.5"></rect><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"></path></svg>12 Jul 2026</span>
+            <span>8 min read</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"></path><circle cx="8" cy="8" r="2"></circle></svg>1,284 views</span>
+          </div>
+          <div style="border:1px solid #ECEBE7; border-radius:10px; aspect-ratio:1200/630; background:repeating-linear-gradient(45deg,#F4F3F0,#F4F3F0 10px,#FBFBFA 10px,#FBFBFA 20px); display:flex; align-items:center; justify-content:center; margin-bottom:32px;"><span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#6F6E69; background:#FBFBFA; padding:4px 10px; border:1px solid #D9D8D3; border-radius:5px;">cover · 1200×630 · same asset as OG</span></div>
+          <p style="font-size:16px; line-height:1.75; color:#33322F; margin:0 0 20px;">Our analytics endpoints computed everything at request time. At launch, with a few thousand rows, that was invisible. Eighteen months in, a single trainer dashboard was scanning 40M workout records per page load — and p95 latency crossed four seconds.</p>
+          <p style="font-size:16px; line-height:1.75; color:#33322F; margin:0;">Aggregating on read means cost grows with history. Aggregating on write means cost stays proportional to new data.</p>
+        </div>
+        <div style="padding-top:120px;">
+          <div style="position:sticky; top:24px; font-size:13px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#A3A29C; letter-spacing:0.08em; margin-bottom:12px;">ON THIS PAGE</div>
+            <div style="display:flex; flex-direction:column; gap:10px; border-left:1px solid #ECEBE7;">
+              <span style="padding-left:14px; border-left:2px solid #1A1A18; margin-left:-1.5px; font-weight:600;">The shape of the problem</span>
+              <span style="padding-left:14px; color:#6F6E69;">Designing the aggregate table</span>
+              <span style="padding-left:14px; color:#6F6E69;">Migrating without downtime</span>
+              <span style="padding-left:14px; color:#6F6E69;">Results</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3e MOBILE COVER ============ -->
+  <div id="3e" style="position:relative; flex:none; display:flex; gap:24px; align-items:flex-start;">
+    <div style="width:390px;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><span style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; background:#1A1A18; color:#FBFBFA; padding:3px 8px; border-radius:4px;">3e</span><span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#6F6E69;">Mobile — post with cover</span></div>
+      <div style="background:#FBFBFA; border:1px solid #D9D8D3; border-radius:20px; overflow:hidden; box-shadow:0 2px 16px rgba(26,26,24,0.06);">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0 20px; height:54px; border-bottom:1px solid #ECEBE7;">
+          <div style="display:flex; align-items:center; gap:8px;"><span style="width:24px; height:24px; border:1.5px solid #1A1A18; border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:11px; letter-spacing:-0.5px;">TK</span><span style="font-weight:600; font-size:14px;">monte-kim.dev</span></div>
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#1A1A18" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"></path></svg>
+        </div>
+        <div style="padding:28px 24px 40px;">
+          <div style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:#6F6E69; margin-bottom:16px;"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4 3 8l4 4"></path></svg>All posts</div>
+          <div style="display:flex; gap:6px; margin-bottom:12px;"><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:500; color:#6F6E69; border:1px solid #ECEBE7; border-radius:4px; padding:2px 7px;">PostgreSQL</span></div>
+          <h1 style="font-size:24px; font-weight:700; letter-spacing:-0.6px; line-height:1.2; margin:0 0 12px; text-wrap:pretty;">Making analytics 480× faster with a pre-aggregated data model</h1>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#A3A29C; padding-bottom:18px; border-bottom:1px solid #ECEBE7; margin-bottom:20px;">12 Jul 2026 · 8 min · 1,284 views</div>
+          <div style="border:1px solid #ECEBE7; border-radius:9px; aspect-ratio:1200/630; background:repeating-linear-gradient(45deg,#F4F3F0,#F4F3F0 10px,#FBFBFA 10px,#FBFBFA 20px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#6F6E69; background:#FBFBFA; padding:3px 8px; border:1px solid #D9D8D3; border-radius:4px;">cover</span></div>
+          <p style="font-size:15px; line-height:1.7; color:#33322F; margin:0;">Our analytics endpoints computed everything at request time. Eighteen months in, a single trainer dashboard was scanning 40M workout records per page load.</p>
+        </div>
+      </div>
+    </div>
+    <div style="width:390px;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#6F6E69; font-weight:600;">3e′</span><span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#6F6E69;">Mobile — editor cover states</span></div>
+      <div style="background:#FBFBFA; border:1px solid #D9D8D3; border-radius:20px; overflow:hidden; box-shadow:0 2px 16px rgba(26,26,24,0.06);">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0 16px; height:52px; border-bottom:1px solid #ECEBE7; background:#FFFFFF;">
+          <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:#6F6E69;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4 3 8l4 4"></path></svg><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; background:#F4F3F0; border:1px solid #ECEBE7; padding:2px 8px; border-radius:100px;">Draft</span></div>
+          <span style="background:#1A1A18; color:#FBFBFA; font-size:12px; font-weight:600; padding:6px 13px; border-radius:7px;">Publish</span>
+        </div>
+        <div style="padding:24px 22px 32px; display:flex; flex-direction:column; gap:20px;">
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#A3A29C; letter-spacing:0.08em; margin-bottom:10px;">NO COVER</div>
+            <div style="display:flex; gap:8px;"><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#6F6E69; border:1px dashed #D9D8D3; border-radius:4px; padding:5px 10px; display:inline-flex; align-items:center; gap:5px;"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.5v9M3.5 8h9"></path></svg>Add tag</span><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#6F6E69; border:1px dashed #D9D8D3; border-radius:4px; padding:5px 10px; display:inline-flex; align-items:center; gap:5px;"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"></rect><circle cx="5.5" cy="6.5" r="1"></circle><path d="m2 11 3.5-3 3 2.5L11 8l3 3"></path></svg>Add cover</span></div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#A3A29C; letter-spacing:0.08em; margin-bottom:10px;">UPLOADING</div>
+            <div style="border:1px solid #ECEBE7; border-radius:9px; aspect-ratio:1200/630; background:#F4F3F0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;">
+              <div style="width:55%; height:4px; background:#ECEBE7; border-radius:100px; overflow:hidden;"><div style="width:62%; height:100%; background:#1A1A18; border-radius:100px;"></div></div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#6F6E69;">Compressing… 1.4MB → 288KB</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#A3A29C; letter-spacing:0.08em; margin-bottom:10px;">UPLOADED (TAP FOR ACTIONS)</div>
+            <div style="position:relative; border:1px solid #ECEBE7; border-radius:9px; aspect-ratio:1200/630; background:repeating-linear-gradient(45deg,#F4F3F0,#F4F3F0 10px,#FBFBFA 10px,#FBFBFA 20px); overflow:hidden;">
+              <div style="position:absolute; top:8px; right:8px; display:flex; gap:6px;">
+                <span style="background:rgba(26,26,24,0.85); color:#FBFBFA; font-size:11.5px; font-weight:600; padding:6px 12px; border-radius:6px;">Replace</span>
+                <span style="background:rgba(26,26,24,0.85); color:#FBFBFA; font-size:11.5px; font-weight:600; padding:6px 12px; border-radius:6px;">Remove</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ 3a MOBILE HOME ============ -->
   <div id="3a" style="position:relative; width:390px; flex:none;">
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><span style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; background:#1A1A18; color:#FBFBFA; padding:3px 8px; border-radius:4px;">3a</span><span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#6F6E69;">Mobile — Home</span></div>

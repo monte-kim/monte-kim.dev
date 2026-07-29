@@ -26,6 +26,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.titleEn} — monte-kim.dev`,
     description: post.excerptEn ?? undefined,
+    openGraph: {
+      title: post.titleEn,
+      description: post.excerptEn ?? undefined,
+      type: "article",
+      ...(post.coverUrl && {
+        images: [{ url: post.coverUrl, width: 1200, height: 630 }],
+      }),
+    },
+    twitter: {
+      card: post.coverUrl ? "summary_large_image" : "summary",
+    },
   };
 }
 
@@ -78,7 +89,11 @@ export default async function PostPage({ params }: Props) {
           </h1>
 
           {/* meta — desktop */}
-          <div className="mb-8 hidden items-center gap-4 border-b border-hairline pb-6 text-[13px] text-muted md:flex">
+          <div
+            className={`hidden items-center gap-4 border-b border-hairline pb-6 text-[13px] text-muted md:flex ${
+              post.coverUrl ? "mb-7" : "mb-8"
+            }`}
+          >
             <span className="inline-flex items-center gap-[6px]">
               <CalendarIcon size={13} />
               {date}
@@ -91,10 +106,24 @@ export default async function PostPage({ params }: Props) {
           </div>
 
           {/* meta — mobile */}
-          <div className="mb-[22px] border-b border-hairline pb-[18px] font-mono text-[11px] text-placeholder md:hidden">
+          <div
+            className={`border-b border-hairline pb-[18px] font-mono text-[11px] text-placeholder md:hidden ${
+              post.coverUrl ? "mb-5" : "mb-[22px]"
+            }`}
+          >
             {date} · {t("minShort", { minutes: post.readMinutes })} ·{" "}
             {t("views", { count: nf.format(post.views) })}
           </div>
+
+          {/* cover (design 2j/3e) — below meta, content width, 1.91:1 */}
+          {post.coverUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={post.coverUrl}
+              alt=""
+              className="mb-5 aspect-[1200/630] w-full rounded-[9px] border border-hairline object-cover md:mb-8 md:rounded-[10px]"
+            />
+          )}
 
           <PostContent doc={post.content} />
 
