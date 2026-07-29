@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 function StatusPill({ status }: { status: "draft" | "published" }) {
   return (
-    <span className="rounded-full border border-hairline bg-subtle px-2 py-[2px] font-mono text-[11px] text-muted">
+    <span className="inline-flex w-[86px] justify-center rounded-full border border-hairline bg-subtle py-[2px] font-mono text-[11px] text-muted">
       {status === "published" ? "Published" : "Draft"}
     </span>
   );
@@ -89,7 +89,7 @@ export default async function AdminPostsPage() {
               </div>
             </Link>
             <div className="flex flex-none items-center gap-3">
-              <div className="hidden flex-col items-end font-mono text-[11px] leading-[1.5] text-placeholder md:flex">
+              <div className="hidden w-[144px] flex-col items-end font-mono text-[11px] leading-[1.5] text-placeholder md:flex">
                 {post.createdAt && <span>created {post.createdAt.slice(0, 10)}</span>}
                 {post.updatedAt && <span>updated {post.updatedAt.slice(0, 10)}</span>}
               </div>

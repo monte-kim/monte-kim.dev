@@ -194,7 +194,7 @@ export function EditorShell({
         } else {
           // show the reader-facing result right away
           openPreview();
-          showToast("Published ✓ — now live");
+          showToast("Published — now live");
         }
         router.refresh();
       } else {
