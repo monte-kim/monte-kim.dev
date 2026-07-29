@@ -30,7 +30,7 @@ async function notifyByEmail(name: string, email: string, body: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "monte-kim.dev <onboarding@resend.dev>",
+        from: "monte-kim.dev <notify@monte-kim.dev>",
         to: [NOTIFY_TO],
         reply_to: email,
         subject: `Say hi from ${name}`,
