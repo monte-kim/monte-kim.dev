@@ -89,11 +89,10 @@ export default async function AdminPostsPage() {
               </div>
             </Link>
             <div className="flex flex-none items-center gap-3">
-              {post.publishedAt && (
-                <span className="hidden font-mono text-[12px] text-placeholder md:inline">
-                  {post.publishedAt.slice(0, 10)}
-                </span>
-              )}
+              <div className="hidden flex-col items-end font-mono text-[11px] leading-[1.5] text-placeholder md:flex">
+                {post.createdAt && <span>created {post.createdAt.slice(0, 10)}</span>}
+                {post.updatedAt && <span>updated {post.updatedAt.slice(0, 10)}</span>}
+              </div>
               <StatusPill status={post.status} />
               <DeleteButton
                 action={deletePost.bind(null, post.id)}

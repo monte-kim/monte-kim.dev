@@ -38,6 +38,7 @@ import {
   TrashIcon,
 } from "@/components/icons";
 import { PostContent } from "@/components/post/post-content";
+import { showToast } from "@/components/toast";
 import type { AdminPost } from "@/lib/admin-posts";
 import { compressCover, compressImage } from "@/lib/compress-image";
 import type { PostDoc } from "@/lib/posts";
@@ -122,6 +123,8 @@ export function EditorShell({
     return () => clearInterval(t);
   }, []);
 
+  const saveFailedRef = useRef(false);
+
   const doSave = useCallback(
     async (editorInstance: Editor | null) => {
       if (!configured || !editorInstance) return;
@@ -133,7 +136,14 @@ export function EditorShell({
         coverUrl: stateRef.current.coverUrl,
       });
       setSaving(false);
-      if (result.ok) setLastSaved(new Date());
+      if (result.ok) {
+        setLastSaved(new Date());
+        saveFailedRef.current = false;
+      } else if (!saveFailedRef.current) {
+        // toast once per failure streak — autosave retries every pause
+        saveFailedRef.current = true;
+        showToast("Save failed — changes are not persisted", "error");
+      }
     },
     [configured, post.id]
   );
@@ -173,13 +183,25 @@ export function EditorShell({
     try {
       if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
       await doSave(editor);
-      const result =
-        status === "published"
-          ? await unpublishPost(post.id)
-          : await publishPost(post.id);
+      const wasPublished = status === "published";
+      const result = wasPublished
+        ? await unpublishPost(post.id)
+        : await publishPost(post.id);
       if (result.ok) {
-        setStatus(status === "published" ? "draft" : "published");
+        setStatus(wasPublished ? "draft" : "published");
+        if (wasPublished) {
+          showToast("Moved back to draft");
+        } else {
+          // show the reader-facing result right away
+          openPreview();
+          showToast("Published ✓ — now live");
+        }
         router.refresh();
+      } else {
+        showToast(
+          wasPublished ? "Unpublish failed" : "Publish failed",
+          "error"
+        );
       }
     } finally {
       setPublishing(false);

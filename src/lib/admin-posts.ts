@@ -27,6 +27,7 @@ export type AdminPostListItem = {
   titleEn: string;
   status: "draft" | "published";
   publishedAt: string | null;
+  createdAt: string | null;
   updatedAt: string | null;
 };
 
@@ -50,6 +51,7 @@ export async function getAdminPosts(): Promise<AdminPostListItem[]> {
       titleEn: post.titleEn,
       status: "published" as const,
       publishedAt: post.publishedAt,
+      createdAt: post.publishedAt,
       updatedAt: null,
     }));
   }
@@ -59,7 +61,7 @@ export async function getAdminPosts(): Promise<AdminPostListItem[]> {
 
   const { data, error } = await supabase
     .from("posts")
-    .select("id,slug,title_en,status,published_at,updated_at")
+    .select("id,slug,title_en,status,published_at,created_at,updated_at")
     .order("updated_at", { ascending: false });
 
   if (error || !data) return [];
@@ -69,6 +71,7 @@ export async function getAdminPosts(): Promise<AdminPostListItem[]> {
     titleEn: row.title_en,
     status: row.status,
     publishedAt: row.published_at,
+    createdAt: row.created_at,
     updatedAt: row.updated_at,
   }));
 }
@@ -83,6 +86,7 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
       titleEn: post.titleEn,
       status: "published",
       publishedAt: post.publishedAt,
+      createdAt: post.publishedAt,
       updatedAt: null,
       content: post.content,
       tags: post.tags,
@@ -96,7 +100,7 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "id,slug,title_en,status,published_at,updated_at,content,cover_url,post_tags(tags(name))"
+      "id,slug,title_en,status,published_at,created_at,updated_at,content,cover_url,post_tags(tags(name))"
     )
     .eq("id", id)
     .maybeSingle();
@@ -108,6 +112,7 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
     titleEn: data.title_en,
     status: data.status,
     publishedAt: data.published_at,
+    createdAt: data.created_at,
     updatedAt: data.updated_at,
     content: (data.content as PostDoc) ?? { type: "doc", content: [] },
     coverUrl: data.cover_url ?? null,
