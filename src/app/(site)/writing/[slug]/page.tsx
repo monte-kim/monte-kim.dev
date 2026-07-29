@@ -19,16 +19,27 @@ export const revalidate = 60;
 
 type Props = { params: Promise<{ slug: string }> };
 
+const SITE_DESCRIPTION =
+  "Production war stories by Tae Hwan \"Monte\" Kim — backend architecture, AWS, and the occasional retrospective.";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostDetail(slug);
   if (!post) return { title: "monte-kim.dev" };
+  // fall back to the site line when the auto-excerpt is missing or too thin
+  const description =
+    post.excerptEn && post.excerptEn.length >= 40
+      ? post.excerptEn
+      : SITE_DESCRIPTION;
   return {
     title: `${post.titleEn} — monte-kim.dev`,
-    description: post.excerptEn ?? undefined,
+    description,
     openGraph: {
+      // page-level openGraph replaces the root one wholesale (shallow merge),
+      // so siteName must be repeated here
+      siteName: "monte-kim.dev",
       title: post.titleEn,
-      description: post.excerptEn ?? undefined,
+      description,
       type: "article",
       images: [
         {
