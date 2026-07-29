@@ -245,6 +245,25 @@ export function TrashIcon(props: IconProps) {
   );
 }
 
+export function Spinner({ size = 14, ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      {...props}
+      className={`animate-spin ${props.className ?? ""}`}
+    >
+      <circle cx="8" cy="8" r="6.5" opacity={0.25} />
+      <path d="M14.5 8A6.5 6.5 0 0 0 8 1.5" />
+    </svg>
+  );
+}
+
 export function MusicIcon(props: IconProps) {
   return (
     <svg {...base(props)}>

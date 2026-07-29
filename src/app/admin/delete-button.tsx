@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import type { AdminActionResult } from "@/app/actions/admin";
+import { Spinner } from "@/components/icons";
 
 /** Confirm-then-delete button for admin lists (bound server action). */
 export function DeleteButton({
@@ -33,9 +34,10 @@ export function DeleteButton({
       type="button"
       onClick={onClick}
       disabled={disabled || pending}
-      className="rounded-[6px] border border-btn2-border px-[10px] py-[4px] text-[12px] font-semibold text-muted hover:border-border hover:text-ink disabled:opacity-50"
+      className="inline-flex items-center gap-[5px] rounded-[6px] border border-btn2-border px-[10px] py-[4px] text-[12px] font-semibold text-muted hover:border-border hover:text-ink disabled:opacity-50"
     >
-      {pending ? "Deleting…" : failed ? "Failed — retry" : "Delete"}
+      {pending && <Spinner size={11} />}
+      {failed ? "Failed — retry" : "Delete"}
     </button>
   );
 }

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
 import { addComment, type CommentResult } from "@/app/actions/comments";
-import { CommentIcon } from "@/components/icons";
+import { CommentIcon, Spinner } from "@/components/icons";
 import type { CommentItem } from "@/lib/posts";
 
 function initials(name: string): string {
@@ -101,8 +101,9 @@ function CommentForm({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-[6px] bg-ink px-[14px] py-[6px] text-[12.5px] font-semibold text-bg disabled:opacity-60"
+          className="inline-flex items-center gap-[6px] rounded-[6px] bg-ink px-[14px] py-[6px] text-[12.5px] font-semibold text-bg disabled:opacity-60"
         >
+          {pending && <Spinner size={12} />}
           {t("post")}
         </button>
       </div>

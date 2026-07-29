@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { signIn } from "@/app/actions/auth";
+import { Spinner } from "@/components/icons";
 
 const INPUT_CLASS =
   "w-full rounded-[8px] border border-border bg-surface px-[14px] py-[11px] text-[14px] text-ink outline-none placeholder:text-placeholder focus:border-ink";
@@ -52,8 +53,9 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-[6px] rounded-[8px] bg-ink p-3 text-[14px] font-semibold text-bg disabled:opacity-60"
+        className="mt-[6px] inline-flex items-center justify-center gap-2 rounded-[8px] bg-ink p-3 text-[14px] font-semibold text-bg disabled:opacity-60"
       >
+        {pending && <Spinner size={14} />}
         {pending ? "Signing in…" : "Sign in"}
       </button>
       {error && <p className="text-center text-[13px] text-muted">{error}</p>}

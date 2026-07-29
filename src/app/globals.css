@@ -52,6 +52,19 @@
   --shadow-menu: var(--shadow-menu);
 }
 
+/* Tailwind v4 preflight sets buttons to cursor:default — restore pointer
+   for every enabled interactive element */
+button:not(:disabled),
+[role="button"]:not(:disabled),
+input[type="file"]:not(:disabled),
+label[for]:not([aria-disabled="true"]),
+summary {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
 ::selection {
   background: var(--selection);
 }

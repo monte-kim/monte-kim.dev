@@ -34,6 +34,7 @@ import {
   LinkIcon,
   PlusIcon,
   RefreshIcon,
+  Spinner,
   TrashIcon,
 } from "@/components/icons";
 import { PostContent } from "@/components/post/post-content";
@@ -80,6 +81,7 @@ export function EditorShell({
   const [status, setStatus] = useState(post.status);
   const [mode, setMode] = useState<"write" | "preview">("write");
   const [saving, setSaving] = useState(false);
+  const [publishing, setPublishing] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [now, setNow] = useState(() => Date.now());
   const [previewDoc, setPreviewDoc] = useState<PostDoc>(sanitizeDoc(post.content));
@@ -166,16 +168,21 @@ export function EditorShell({
   };
 
   const togglePublish = async () => {
-    if (!configured) return;
-    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
-    await doSave(editor);
-    const result =
-      status === "published"
-        ? await unpublishPost(post.id)
-        : await publishPost(post.id);
-    if (result.ok) {
-      setStatus(status === "published" ? "draft" : "published");
-      router.refresh();
+    if (!configured || publishing) return;
+    setPublishing(true);
+    try {
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+      await doSave(editor);
+      const result =
+        status === "published"
+          ? await unpublishPost(post.id)
+          : await publishPost(post.id);
+      if (result.ok) {
+        setStatus(status === "published" ? "draft" : "published");
+        router.refresh();
+      }
+    } finally {
+      setPublishing(false);
     }
   };
 
@@ -294,7 +301,10 @@ export function EditorShell({
           <span className="hidden items-center gap-[5px] text-[12px] text-placeholder md:inline-flex">
             {configured ? (
               saving ? (
-                "Saving…"
+                <>
+                  <Spinner size={12} />
+                  Saving…
+                </>
               ) : lastSaved ? (
                 <>
                   <CheckIcon size={12} />
@@ -341,9 +351,10 @@ export function EditorShell({
           <button
             type="button"
             onClick={togglePublish}
-            disabled={!configured}
-            className="rounded-[7px] bg-ink px-[13px] py-[6px] text-[12px] font-semibold text-bg disabled:opacity-50 md:px-4 md:text-[12.5px]"
+            disabled={!configured || publishing}
+            className="inline-flex items-center gap-[6px] rounded-[7px] bg-ink px-[13px] py-[6px] text-[12px] font-semibold text-bg disabled:opacity-50 md:px-4 md:text-[12.5px]"
           >
+            {publishing && <Spinner size={12} />}
             {status === "published" ? "Unpublish" : "Publish"}
           </button>
         </div>

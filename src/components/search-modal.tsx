@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { SearchIcon } from "@/components/icons";
+import { SearchIcon, Spinner } from "@/components/icons";
 import { formatPostDateLong } from "@/lib/posts";
 
 type SearchPost = {
@@ -120,6 +120,11 @@ export function SearchModal() {
           </kbd>
         </div>
         <div className="max-h-[320px] overflow-y-auto py-2">
+          {!posts && (
+            <div className="flex justify-center py-6">
+              <Spinner size={16} className="text-muted" />
+            </div>
+          )}
           {results.map((post, i) => (
             <button
               key={post.slug}

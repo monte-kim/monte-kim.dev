@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
 import { sendMessage, type MessageResult } from "@/app/actions/messages";
+import { Spinner } from "@/components/icons";
 
 const INPUT_CLASS =
   "w-full rounded-[8px] border border-border bg-surface px-[14px] py-[11px] text-[14px] text-ink outline-none placeholder:text-placeholder focus:border-ink";
@@ -86,8 +87,9 @@ export function SayHiForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-[6px] rounded-[8px] bg-ink p-3 text-[14px] font-semibold text-bg disabled:opacity-60"
+        className="mt-[6px] inline-flex items-center justify-center gap-2 rounded-[8px] bg-ink p-3 text-[14px] font-semibold text-bg disabled:opacity-60"
       >
+        {pending && <Spinner size={14} />}
         {pending ? t("sending") : t("send")}
       </button>
       {status === "sent" && (
