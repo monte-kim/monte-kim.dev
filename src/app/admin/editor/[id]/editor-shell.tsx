@@ -197,10 +197,14 @@ export function EditorShell({
 
   const switchLang = (next: "en" | "ko") => {
     if (!editor || next === lang) return;
+    // flush BEFORE moving langRef, and move langRef BEFORE setContent —
+    // setContent can emit an update, and onUpdate writes into docsRef[langRef]
     docsRef.current[langRef.current] = editor.getJSON() as PostDoc;
-    if (next === "ko" && !docsRef.current.ko) docsRef.current.ko = EMPTY_DOC;
-    editor.commands.setContent(docsRef.current[next] ?? EMPTY_DOC);
     langRef.current = next;
+    if (next === "ko" && !docsRef.current.ko) docsRef.current.ko = EMPTY_DOC;
+    editor.commands.setContent(docsRef.current[next] ?? EMPTY_DOC, {
+      emitUpdate: false,
+    });
     setLang(next);
   };
 
