@@ -8,11 +8,12 @@ import {
   useRef,
   useState,
 } from "react";
-import { EditorContent, useEditor, type Editor } from "@tiptap/react";
+import { EditorContent, useEditor, useEditorState, type Editor } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import Image from "@tiptap/extension-image";
+import { TableKit } from "@tiptap/extension-table";
 import { Placeholder } from "@tiptap/extensions";
 import { DragHandle } from "@tiptap/extension-drag-handle-react";
 import { common, createLowlight } from "lowlight";
@@ -106,9 +107,12 @@ export function EditorShell({
       StarterKit.configure({
         codeBlock: false,
         link: { openOnClick: false },
+        // the post title is the page's only h1 — body headings start at h2
+        heading: { levels: [2, 3] },
       }),
       CodeBlockLowlight.configure({ lowlight }),
       Image,
+      TableKit.configure({ table: { resizable: false } }),
       Placeholder.configure({ placeholder: "Write, or type “/” for blocks…" }),
       SlashCommand(() => fileInputRef.current?.click()),
     ],
@@ -284,6 +288,12 @@ export function EditorShell({
           : "Text";
 
   const [turnIntoOpen, setTurnIntoOpen] = useState(false);
+
+  // v3 doesn't re-render on every transaction — track table state explicitly
+  const inTable = useEditorState({
+    editor,
+    selector: (ctx) => ctx.editor?.isActive("table") ?? false,
+  });
 
   const setLink = () => {
     if (!editor) return;
@@ -668,6 +678,38 @@ export function EditorShell({
               </div>
             </BubbleMenu>
           )}
+        </div>
+      )}
+
+      {/* table controls — visible while the cursor is inside a table */}
+      {editor && mode === "write" && inTable && (
+        <div className="fixed bottom-[54px] left-1/2 z-40 flex -translate-x-1/2 items-center gap-[2px] rounded-[8px] bg-[#1A1A18] p-1 shadow-[0_4px_14px_rgba(26,26,24,0.25)] md:bottom-6">
+          {(
+            [
+              ["+ Row", () => editor.chain().focus().addRowAfter().run()],
+              ["− Row", () => editor.chain().focus().deleteRow().run()],
+              ["+ Col", () => editor.chain().focus().addColumnAfter().run()],
+              ["− Col", () => editor.chain().focus().deleteColumn().run()],
+            ] as const
+          ).map(([label, run]) => (
+            <button
+              key={label}
+              type="button"
+              onClick={run}
+              className="rounded-[5px] px-2 py-[5px] font-mono text-[11.5px] text-[#FBFBFA] hover:bg-[#33322F]"
+            >
+              {label}
+            </button>
+          ))}
+          <span className="mx-[3px] h-4 w-px bg-[#4A4945]" />
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().deleteTable().run()}
+            className="inline-flex items-center gap-[5px] rounded-[5px] px-2 py-[5px] text-[11.5px] font-semibold text-[#FBFBFA] hover:bg-[#33322F]"
+          >
+            <TrashIcon size={11} />
+            Table
+          </button>
         </div>
       )}
 

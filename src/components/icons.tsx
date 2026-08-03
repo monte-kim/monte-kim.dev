@@ -264,6 +264,15 @@ export function Spinner({ size = 14, ...props }: IconProps) {
   );
 }
 
+export function TableIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="2" y="3" width="12" height="10" rx="1.5" />
+      <path d="M2 6.5h12M6.5 6.5V13M10.5 6.5V13" />
+    </svg>
+  );
+}
+
 export function MusicIcon(props: IconProps) {
   return (
     <svg {...base(props)}>

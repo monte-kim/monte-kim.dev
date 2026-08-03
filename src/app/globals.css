@@ -172,6 +172,34 @@ body {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+.editor-prose table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.editor-prose th,
+.editor-prose td {
+  border: 1px solid var(--hairline);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+  min-width: 48px;
+}
+.editor-prose th {
+  background: var(--subtle);
+  font-weight: 600;
+  color: var(--ink);
+}
+.editor-prose td p,
+.editor-prose th p {
+  margin: 0;
+}
+.editor-prose .selectedCell {
+  background: var(--selection);
+}
+
 @keyframes toast-in {
   from {
     opacity: 0;

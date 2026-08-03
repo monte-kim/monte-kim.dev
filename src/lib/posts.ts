@@ -197,7 +197,11 @@ export type ContentNode = {
     | "listItem"
     | "image"
     | "horizontalRule"
-    | "figurePlaceholder";
+    | "figurePlaceholder"
+    | "table"
+    | "tableRow"
+    | "tableHeader"
+    | "tableCell";
   attrs?: {
     level?: number;
     language?: string | null;
@@ -205,6 +209,8 @@ export type ContentNode = {
     src?: string;
     alt?: string;
     label?: string;
+    colspan?: number;
+    rowspan?: number;
   };
   content?: (ContentNode | InlineNode)[];
 };

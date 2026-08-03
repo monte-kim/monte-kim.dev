@@ -9,7 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { BulletListIcon, ImageIcon } from "@/components/icons";
+import { BulletListIcon, ImageIcon, TableIcon } from "@/components/icons";
 
 export type SlashItem = {
   title: string;
@@ -77,6 +77,18 @@ export function slashItems(onImageRequest: () => void): SlashItem[] {
       icon: <span className="font-serif text-[15px] font-bold">&ldquo;</span>,
       command: (editor, range) =>
         editor.chain().focus().deleteRange(range).toggleBlockquote().run(),
+    },
+    {
+      title: "Table",
+      description: "3×3 with header row",
+      icon: <TableIcon size={14} />,
+      command: (editor, range) =>
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+          .run(),
     },
     {
       title: "Divider",

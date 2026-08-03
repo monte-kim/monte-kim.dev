@@ -148,6 +148,42 @@ function renderNode(node: ContentNode, key: number): ReactNode {
     case "horizontalRule":
       return <hr key={key} className="my-8 border-hairline" />;
 
+    case "table":
+      return (
+        <div key={key} className="mb-4 overflow-x-auto md:mb-5">
+          <table className="w-full border-collapse text-[13.5px] leading-[1.6] md:text-[14px]">
+            <tbody>
+              {(node.content ?? []).map((row, i) => (
+                <tr key={i}>
+                  {((row as ContentNode).content ?? []).map((cell, j) => {
+                    const cellNode = cell as ContentNode;
+                    const Tag = cellNode.type === "tableHeader" ? "th" : "td";
+                    return (
+                      <Tag
+                        key={j}
+                        colSpan={cellNode.attrs?.colspan}
+                        rowSpan={cellNode.attrs?.rowspan}
+                        className={
+                          Tag === "th"
+                            ? "border border-hairline bg-subtle px-3 py-2 text-left align-top font-semibold text-ink"
+                            : "border border-hairline px-3 py-2 text-left align-top text-[#33322F] dark:text-body"
+                        }
+                      >
+                        {(cellNode.content ?? []).map((child, k) => (
+                          <div key={k}>
+                            {renderInline((child as ContentNode).content)}
+                          </div>
+                        ))}
+                      </Tag>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+
     case "figurePlaceholder":
       return (
         <div
