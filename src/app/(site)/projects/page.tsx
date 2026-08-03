@@ -33,8 +33,9 @@ const PROJECTS: Project[] = [
     badgeFilled: true,
     icon: <MusicIcon size={16} />,
     stack: ["Spring Boot", "PostGIS", "Terraform"],
-    caseStudy: "/writing/founding-muroom-mvp-5-months",
-    github: "https://github.com/monte-kim",
+    // TODO caseStudy: "/writing/muroom-aws-on-pocket-money" once the post is published
+    // TODO github: switch to muroom-backend-bach after the repo goes public (Aug teardown)
+    github: "https://github.com/muroom-studio",
   },
   {
     key: "fitness",
@@ -42,7 +43,7 @@ const PROJECTS: Project[] = [
     badge: "Moty",
     icon: <ActivityIcon size={16} />,
     stack: ["Java 21", "ECS", "TimescaleDB"],
-    caseStudy: "/writing/analytics-480x-faster-pre-aggregation",
+    // TODO caseStudy: link once the Moty case study is published
   },
   {
     key: "site",

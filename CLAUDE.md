@@ -62,7 +62,7 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 
 미완료/백로그:
 1. ko.json 한국어 카피 검수 (Monte)
-2. `/projects` 케이스 스터디 링크가 폴백 slug를 가리킴 → 실제 글 발행 후 교체 (현재 404). Muroom/News classifier GitHub 링크도 실제 저장소로 교체
+2. `/projects` 카드 잔여 작업: **Muroom 문안은 도시에 검증본으로 교체 완료(2026-08-03, 근거: muroom-backend-bach/docs/dossier/10-projects-card.md)**. 남은 것 — ① Muroom 케이스 스터디 발행 후 `caseStudy: "/writing/muroom-aws-on-pocket-money"` 활성화 ② Muroom GitHub을 org 링크에서 backend 레포로 교체(8월 리소스 해체·키 폐기·공개 전환 후) ③ Fitness 케이스 스터디 링크(Moty 도시에 후) ④ News classifier GitHub 실제 저장소로
 
 ## 명령어 & 검증
 
