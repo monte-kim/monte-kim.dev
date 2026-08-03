@@ -33,6 +33,8 @@ export type AdminPostListItem = {
 
 export type AdminPost = AdminPostListItem & {
   content: PostDoc;
+  contentKo: PostDoc | null; // preview-only in the editor (EN is the editable body)
+  titleKo: string | null;
   tags: string[];
   coverUrl: string | null;
 };
@@ -89,6 +91,8 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
       createdAt: post.publishedAt,
       updatedAt: null,
       content: post.content,
+      contentKo: post.contentKo,
+      titleKo: post.titleKo,
       tags: post.tags,
       coverUrl: post.coverUrl,
     };
@@ -100,7 +104,7 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "id,slug,title_en,status,published_at,created_at,updated_at,content,cover_url,post_tags(tags(name))"
+      "id,slug,title_en,title_ko,status,published_at,created_at,updated_at,content,content_ko,cover_url,post_tags(tags(name))"
     )
     .eq("id", id)
     .maybeSingle();
@@ -115,6 +119,8 @@ export async function getAdminPost(id: string): Promise<AdminPost | null> {
     createdAt: data.created_at,
     updatedAt: data.updated_at,
     content: (data.content as PostDoc) ?? { type: "doc", content: [] },
+    contentKo: (data.content_ko as PostDoc) ?? null,
+    titleKo: data.title_ko ?? null,
     coverUrl: data.cover_url ?? null,
     tags: (data.post_tags ?? [])
       .map((pt: { tags: { name: string } | { name: string }[] | null }) =>

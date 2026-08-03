@@ -82,6 +82,7 @@ export function EditorShell({
   const [tagInput, setTagInput] = useState<string | null>(null);
   const [status, setStatus] = useState(post.status);
   const [mode, setMode] = useState<"write" | "preview">("write");
+  const [previewLang, setPreviewLang] = useState<"en" | "ko">("en");
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -417,8 +418,33 @@ export function EditorShell({
 
       {mode === "preview" ? (
         <article className="mx-auto max-w-[720px] px-6 pb-16 pt-8 md:px-10 md:pt-14">
+          {/* preview language — KO is the stored body (read-only; editor edits EN) */}
+          <div className="mb-5 flex items-center gap-3">
+            <div className="flex overflow-hidden rounded-[6px] border border-border text-[12px] font-semibold">
+              {(["en", "ko"] as const).map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  disabled={lang === "ko" && !post.contentKo}
+                  onClick={() => setPreviewLang(lang)}
+                  className={`px-[9px] py-1 uppercase ${
+                    previewLang === lang ? "bg-ink text-bg" : "text-muted"
+                  } disabled:opacity-40`}
+                >
+                  {lang}
+                </button>
+              ))}
+            </div>
+            {previewLang === "ko" && (
+              <span className="font-mono text-[11px] text-placeholder">
+                stored Korean body — editing here is EN-only
+              </span>
+            )}
+          </div>
           <h1 className="mb-4 text-pretty text-[24px] font-bold leading-[1.2] tracking-[-0.6px] md:text-[34px] md:leading-[1.15] md:tracking-[-1px]">
-            {title || "Untitled"}
+            {previewLang === "ko"
+              ? post.titleKo || title || "Untitled"
+              : title || "Untitled"}
           </h1>
           {coverUrl && (
             // eslint-disable-next-line @next/next/no-img-element
@@ -428,7 +454,9 @@ export function EditorShell({
               className="mb-5 aspect-[1200/630] w-full rounded-[9px] border border-hairline object-cover md:mb-8 md:rounded-[10px]"
             />
           )}
-          <PostContent doc={previewDoc} />
+          <PostContent
+            doc={previewLang === "ko" && post.contentKo ? post.contentKo : previewDoc}
+          />
         </article>
       ) : (
         <div className="mx-auto max-w-[720px] px-6 pb-[72px] pt-7 md:px-10 md:pt-14">
