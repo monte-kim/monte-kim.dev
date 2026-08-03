@@ -43,6 +43,7 @@ import { showToast } from "@/components/toast";
 import type { AdminPost } from "@/lib/admin-posts";
 import { compressCover, compressImage } from "@/lib/compress-image";
 import type { PostDoc } from "@/lib/posts";
+import { nodeText } from "@/lib/toc";
 import { SlashCommand } from "./slash-command";
 
 const lowlight = createLowlight(common);
@@ -53,6 +54,12 @@ function sanitizeDoc(doc: PostDoc): PostDoc {
     ...doc,
     content: doc.content.filter((node) => node.type !== "figurePlaceholder"),
   };
+}
+
+const EMPTY_DOC: PostDoc = { type: "doc", content: [] };
+
+function isEmptyDoc(doc: PostDoc | null): boolean {
+  return !doc || !doc.content.some((n) => nodeText(n).trim() || n.type === "image");
 }
 
 function formatBytes(n: number): string {
@@ -78,6 +85,7 @@ export function EditorShell({
 }) {
   const router = useRouter();
   const [title, setTitle] = useState(post.titleEn);
+  const [titleKo, setTitleKo] = useState(post.titleKo ?? "");
   const [tags, setTags] = useState<string[]>(post.tags);
   const [tagInput, setTagInput] = useState<string | null>(null);
   const [status, setStatus] = useState(post.status);
@@ -87,7 +95,18 @@ export function EditorShell({
   const [publishing, setPublishing] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [now, setNow] = useState(() => Date.now());
-  const [previewDoc, setPreviewDoc] = useState<PostDoc>(sanitizeDoc(post.content));
+  const [previewDocs, setPreviewDocs] = useState<{ en: PostDoc; ko: PostDoc | null }>({
+    en: sanitizeDoc(post.content),
+    ko: post.contentKo ? sanitizeDoc(post.contentKo) : null,
+  });
+
+  // bilingual body: one editor instance, docs swapped per language tab
+  const [lang, setLang] = useState<"en" | "ko">("en");
+  const langRef = useRef<"en" | "ko">("en");
+  const docsRef = useRef<{ en: PostDoc; ko: PostDoc | null }>({
+    en: sanitizeDoc(post.content),
+    ko: post.contentKo ? sanitizeDoc(post.contentKo) : null,
+  });
 
   // cover (design 2i): idle → compressing → uploading → idle
   const [coverUrl, setCoverUrl] = useState(post.coverUrl);
@@ -99,8 +118,8 @@ export function EditorShell({
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const stateRef = useRef({ title, tags, coverUrl });
-  stateRef.current = { title, tags, coverUrl };
+  const stateRef = useRef({ title, titleKo, tags, coverUrl });
+  stateRef.current = { title, titleKo, tags, coverUrl };
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -119,7 +138,10 @@ export function EditorShell({
     ],
     editorProps: { attributes: { class: "editor-prose" } },
     content: sanitizeDoc(post.content),
-    onUpdate: () => scheduleSave(),
+    onUpdate: ({ editor: e }) => {
+      docsRef.current[langRef.current] = e.getJSON() as PostDoc;
+      scheduleSave();
+    },
   });
 
   // ticking "Saved 12s ago"
@@ -134,9 +156,13 @@ export function EditorShell({
     async (editorInstance: Editor | null) => {
       if (!configured || !editorInstance) return;
       setSaving(true);
+      docsRef.current[langRef.current] = editorInstance.getJSON() as PostDoc;
+      const koDoc = isEmptyDoc(docsRef.current.ko) ? null : docsRef.current.ko;
       const result = await savePost(post.id, {
         titleEn: stateRef.current.title,
-        content: editorInstance.getJSON() as PostDoc,
+        titleKo: stateRef.current.titleKo.trim() || null,
+        content: docsRef.current.en,
+        contentKo: koDoc,
         tags: stateRef.current.tags,
         coverUrl: stateRef.current.coverUrl,
       });
@@ -164,8 +190,18 @@ export function EditorShell({
   editorRef.current = editor;
 
   const changeTitle = (value: string) => {
-    setTitle(value);
+    if (lang === "ko") setTitleKo(value);
+    else setTitle(value);
     scheduleSave();
+  };
+
+  const switchLang = (next: "en" | "ko") => {
+    if (!editor || next === lang) return;
+    docsRef.current[langRef.current] = editor.getJSON() as PostDoc;
+    if (next === "ko" && !docsRef.current.ko) docsRef.current.ko = EMPTY_DOC;
+    editor.commands.setContent(docsRef.current[next] ?? EMPTY_DOC);
+    langRef.current = next;
+    setLang(next);
   };
 
   const addTag = (name: string) => {
@@ -265,7 +301,14 @@ export function EditorShell({
   };
 
   const openPreview = () => {
-    if (editor) setPreviewDoc(editor.getJSON() as PostDoc);
+    if (editor) {
+      docsRef.current[langRef.current] = editor.getJSON() as PostDoc;
+      setPreviewDocs({
+        en: docsRef.current.en,
+        ko: isEmptyDoc(docsRef.current.ko) ? null : docsRef.current.ko,
+      });
+    }
+    setPreviewLang(lang === "ko" && !isEmptyDoc(docsRef.current.ko) ? "ko" : "en");
     setMode("preview");
   };
 
@@ -418,33 +461,24 @@ export function EditorShell({
 
       {mode === "preview" ? (
         <article className="mx-auto max-w-[720px] px-6 pb-16 pt-8 md:px-10 md:pt-14">
-          {/* preview language — KO is the stored body (read-only; editor edits EN) */}
-          <div className="mb-5 flex items-center gap-3">
-            <div className="flex overflow-hidden rounded-[6px] border border-border text-[12px] font-semibold">
-              {(["en", "ko"] as const).map((lang) => (
-                <button
-                  key={lang}
-                  type="button"
-                  disabled={lang === "ko" && !post.contentKo}
-                  onClick={() => setPreviewLang(lang)}
-                  className={`px-[9px] py-1 uppercase ${
-                    previewLang === lang ? "bg-ink text-bg" : "text-muted"
-                  } disabled:opacity-40`}
-                >
-                  {lang}
-                </button>
-              ))}
-            </div>
-            {previewLang === "ko" && (
-              <span className="font-mono text-[11px] text-placeholder">
-                stored Korean body — editing here is EN-only
-              </span>
-            )}
+          {/* preview language */}
+          <div className="mb-5 flex overflow-hidden self-start rounded-[6px] border border-border text-[12px] font-semibold" style={{ width: "fit-content" }}>
+            {(["en", "ko"] as const).map((l) => (
+              <button
+                key={l}
+                type="button"
+                disabled={l === "ko" && !previewDocs.ko}
+                onClick={() => setPreviewLang(l)}
+                className={`px-[9px] py-1 uppercase ${
+                  previewLang === l ? "bg-ink text-bg" : "text-muted"
+                } disabled:opacity-40`}
+              >
+                {l}
+              </button>
+            ))}
           </div>
           <h1 className="mb-4 text-pretty text-[24px] font-bold leading-[1.2] tracking-[-0.6px] md:text-[34px] md:leading-[1.15] md:tracking-[-1px]">
-            {previewLang === "ko"
-              ? post.titleKo || title || "Untitled"
-              : title || "Untitled"}
+            {previewLang === "ko" ? titleKo || title || "Untitled" : title || "Untitled"}
           </h1>
           {coverUrl && (
             // eslint-disable-next-line @next/next/no-img-element
@@ -455,11 +489,34 @@ export function EditorShell({
             />
           )}
           <PostContent
-            doc={previewLang === "ko" && post.contentKo ? post.contentKo : previewDoc}
+            doc={previewLang === "ko" && previewDocs.ko ? previewDocs.ko : previewDocs.en}
           />
         </article>
       ) : (
         <div className="mx-auto max-w-[720px] px-6 pb-[72px] pt-7 md:px-10 md:pt-14">
+          {/* body language tab — EN is canonical; KO left empty falls back to EN on the site */}
+          <div className="mb-4 flex items-center gap-3">
+            <div className="flex overflow-hidden rounded-[6px] border border-border text-[12px] font-semibold">
+              {(["en", "ko"] as const).map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  onClick={() => switchLang(l)}
+                  className={`px-[9px] py-1 uppercase ${
+                    lang === l ? "bg-ink text-bg" : "text-muted"
+                  }`}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
+            <span className="font-mono text-[11px] text-placeholder">
+              {lang === "ko"
+                ? "한국어 본문 — 비워두면 사이트에서 EN으로 표시"
+                : "English body (canonical)"}
+            </span>
+          </div>
+
           {/* tag + cover chips */}
           <div className="mb-5 flex flex-wrap items-center gap-[10px]">
             {tags.map((tag) => (
@@ -582,16 +639,17 @@ export function EditorShell({
             </div>
           )}
 
-          {/* title */}
+          {/* title — bound to the active language */}
           <textarea
-            value={title}
+            key={lang}
+            value={lang === "ko" ? titleKo : title}
             onChange={(e) => {
               changeTitle(e.target.value);
               e.target.style.height = "auto";
               e.target.style.height = `${e.target.scrollHeight}px`;
             }}
-            placeholder="Post title"
-            rows={1}
+            placeholder={lang === "ko" ? "제목 (한국어)" : "Post title"}
+            rows={2}
             className="mb-5 w-full resize-none overflow-hidden bg-transparent text-[26px] font-bold leading-[1.2] tracking-[-0.8px] text-ink outline-none placeholder:text-placeholder md:mb-7 md:text-[38px] md:tracking-[-1.2px]"
           />
 

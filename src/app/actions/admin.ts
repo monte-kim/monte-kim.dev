@@ -71,7 +71,9 @@ export async function savePost(
   id: string,
   payload: {
     titleEn: string;
+    titleKo: string | null;
     content: PostDoc;
+    contentKo: PostDoc | null;
     tags: string[];
     coverUrl: string | null;
   }
@@ -83,10 +85,13 @@ export async function savePost(
     .from("posts")
     .update({
       title_en: payload.titleEn,
+      title_ko: payload.titleKo,
       content: payload.content,
+      content_ko: payload.contentKo,
       cover_url: payload.coverUrl,
       read_minutes: readMinutes(payload.content),
       excerpt_en: excerptOf(payload.content),
+      excerpt_ko: payload.contentKo ? excerptOf(payload.contentKo) : null,
     })
     .eq("id", id);
   if (updateError) return FAIL;
