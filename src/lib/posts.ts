@@ -219,6 +219,8 @@ export type PostDoc = { type: "doc"; content: ContentNode[] };
 
 export type PostDetail = PostListItem & {
   content: PostDoc;
+  /** Korean body; page falls back to `content` when absent. Editor edits EN only. */
+  contentKo: PostDoc | null;
   coverUrl: string | null;
 };
 
@@ -340,6 +342,7 @@ export const getPostDetail = cache(async function getPostDetail(
       ...item,
       tags: FALLBACK_DETAIL_TAGS[slug] ?? item.tags,
       content: FALLBACK_CONTENT[slug] ?? fallbackDocFor(item),
+      contentKo: null,
       coverUrl: null,
     };
   };
@@ -351,7 +354,7 @@ export const getPostDetail = cache(async function getPostDetail(
     const { data, error } = await supabase
       .from("posts")
       .select(
-        "slug,title_en,title_ko,excerpt_en,excerpt_ko,content,cover_url,published_at,read_minutes,post_views(count),post_tags(tags(name)),comments(count)"
+        "slug,title_en,title_ko,excerpt_en,excerpt_ko,content,content_ko,cover_url,published_at,read_minutes,post_views(count),post_tags(tags(name)),comments(count)"
       )
       .eq("status", "published")
       .eq("slug", slug)
@@ -379,6 +382,7 @@ export const getPostDetail = cache(async function getPostDetail(
         ? Number(data.comments[0]?.count ?? 0)
         : 0,
       content: (data.content as PostDoc) ?? { type: "doc", content: [] },
+      contentKo: (data.content_ko as PostDoc) ?? null,
       coverUrl: data.cover_url ?? null,
     };
   } catch {

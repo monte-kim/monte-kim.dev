@@ -68,7 +68,8 @@ export default async function PostPage({ params }: Props) {
   if (!post) notFound();
 
   const title = postTitle(post, locale);
-  const toc = extractToc(post.content);
+  const doc = locale === "ko" && post.contentKo ? post.contentKo : post.content;
+  const toc = extractToc(doc);
   const nf = new Intl.NumberFormat(locale === "ko" ? "ko" : "en-GB");
   const date = formatPostDateLong(post.publishedAt, locale);
 
@@ -142,7 +143,7 @@ export default async function PostPage({ params }: Props) {
             />
           )}
 
-          <PostContent doc={post.content} />
+          <PostContent doc={doc} />
 
           <CommentsSection
             slug={post.slug}
