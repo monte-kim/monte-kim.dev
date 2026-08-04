@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
     detailSlug: "muroom",
     icon: <MusicIcon size={16} />,
     stack: ["Spring Boot", "PostGIS", "Terraform"],
-    // TODO caseStudy: "/writing/muroom-aws-on-pocket-money" once the post is published
+    caseStudy: "/writing/muroom-aws-on-pocket-money",
     // TODO github: switch to muroom-backend-bach after the repo goes public (Aug teardown)
     github: "https://github.com/muroom-studio",
   },
