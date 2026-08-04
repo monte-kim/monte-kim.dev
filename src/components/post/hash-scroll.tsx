@@ -11,9 +11,12 @@ export function HashScroll() {
     const hash = window.location.hash;
     if (!hash) return;
     const id = decodeURIComponent(hash.slice(1));
-    requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView();
-    });
+    // the router's own post-navigation scroll can land after ours —
+    // re-assert a few times until layout settles
+    const timers = [0, 120, 300, 600, 1000].map((ms) =>
+      setTimeout(() => document.getElementById(id)?.scrollIntoView(), ms)
+    );
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return null;
