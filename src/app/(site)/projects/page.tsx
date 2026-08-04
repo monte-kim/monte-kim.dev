@@ -88,22 +88,22 @@ export default async function ProjectsPage() {
           >
             {/* stretched link (design 2b′): whole card navigates to the detail */}
             {project.detailSlug && (
-              <>
-                <Link
-                  href={`/projects/${project.detailSlug}`}
-                  aria-label={`${project.name} — details`}
-                  className="absolute inset-0 rounded-[12px]"
-                />
-                <span className="pointer-events-none absolute right-4 top-4 text-[#C9C8C2] transition-colors group-hover:text-ink dark:text-[#4a4a47] dark:group-hover:text-ink">
-                  <ArrowRightIcon size={15} />
-                </span>
-              </>
+              <Link
+                href={`/projects/${project.detailSlug}`}
+                aria-label={`${project.name} — details`}
+                className="absolute inset-0 rounded-[12px]"
+              />
             )}
             <div className="flex items-center gap-[10px]">
               <span className="flex h-[34px] w-[34px] items-center justify-center rounded-[8px] border border-hairline text-ink">
                 {project.icon}
               </span>
               <span className="text-[17px] font-bold">{project.name}</span>
+              {project.detailSlug && (
+                <span className="pointer-events-none ml-auto text-[#C9C8C2] transition-colors group-hover:text-ink dark:text-[#4a4a47] dark:group-hover:text-ink">
+                  <ArrowRightIcon size={15} />
+                </span>
+              )}
             </div>
             <div className="flex gap-[6px]">
               <span

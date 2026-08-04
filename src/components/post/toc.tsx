@@ -30,8 +30,10 @@ function useActiveHeading(items: TocItem[]): string {
   return activeId;
 }
 
-function scrollToId(id: string) {
+function scrollToId(id: string, updateHash = true) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  // deliberate navigation updates the URL; scrolling never does
+  if (updateHash) history.pushState(null, "", `#${id}`);
 }
 
 /** Desktop right-rail TOC (design 2f) — sticky, active section highlighted. */
@@ -123,7 +125,7 @@ export function TocMobileBar({ items, title }: { items: TocItem[]; title: string
             aria-label={t("comments", { count: 0 })}
             onClick={() => {
               setOpen(false);
-              scrollToId("comments");
+              scrollToId("comments", false);
             }}
           >
             <CommentIcon size={16} />
