@@ -243,7 +243,8 @@ const MUROOM: ProjectDetail = {
         en: "Server bills were coming out of our own pockets, so I traded managed guarantees for ~$150/mo across two environments — then rebuilt the guarantees by hand: 3-layer backups, WAL shipping every 10s, and RDS-grade credential rotation on a database AWS doesn't manage.",
         ko: "서버비가 사비였기에 관리형 보증을 포기하고 2환경 월 ~$150로 — 그리고 그 보증을 손으로 재구축했습니다: 3중 백업, 10초 WAL 쉬핑, 자체 DB 위의 RDS급 로테이션.",
       },
-      href: "/writing/muroom-aws-on-pocket-money",
+      // section deep links: EN anchors (KO mode falls back to page top gracefully)
+      href: "/writing/muroom-aws-on-pocket-money#giving-up-managed-services-without-giving-up-their-guarantees",
     },
     {
       title: {
@@ -254,7 +255,7 @@ const MUROOM: ProjectDetail = {
         en: "The paid directions API billed per studio per page; the free public alternative was rate-limited to unusability. We deleted the feature and compute Haversine in Java: strictly worse information, strictly zero marginal cost.",
         ko: "유료 길찾기는 페이지당 과금, 무료 공공 API는 쿼터로 불가 — 기능을 지우고 Java Haversine으로. 정보는 후퇴, 한계비용은 0.",
       },
-      href: "/writing/muroom-aws-on-pocket-money",
+      href: "/writing/muroom-aws-on-pocket-money#when-cost-pressure-reaches-the-product",
     },
     {
       title: { en: "JWT → sessions", ko: "JWT → 세션" },
@@ -273,7 +274,7 @@ const MUROOM: ProjectDetail = {
         en: "App-generated 64-bit time-sortable PKs killed a per-INSERT round-trip; two days later JavaScript's 2⁵³ limit silently truncated them, and every API ID became a string the same afternoon.",
         ko: "앱 생성 64비트 시간 정렬 PK로 INSERT 왕복 제거 — 이틀 뒤 JS의 2⁵³ 한계가 ID를 조용히 자르며, 그날 오후 모든 API ID가 문자열이 됐습니다.",
       },
-      href: "/writing/muroom-ids-javascript",
+      href: "/writing/muroom-ids-javascript#migration-one-sequences-tsid",
     },
     {
       title: {
@@ -284,7 +285,7 @@ const MUROOM: ProjectDetail = {
         en: "On working-engineer advice: relax the database, enforce in code. Fourteen FKs went; creation-time existence checks and service-owned cascade deletes took their place, with partial unique indexes handling soft-delete uniqueness.",
         ko: "실무자 조언에 따라 'DB는 완화, 코드는 강제' — FK 14개를 걷어내고 생성 시점 존재 검증·서비스 소유 연쇄 삭제·partial unique index로 대체.",
       },
-      href: "/writing/muroom-ids-javascript",
+      href: "/writing/muroom-ids-javascript#the-quieter-migration-deleting-our-foreign-keys",
     },
   ],
   // derived copy — 3 published posts
