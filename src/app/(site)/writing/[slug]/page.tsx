@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowLeftIcon, CalendarIcon, EyeIcon } from "@/components/icons";
 import { CommentsSection } from "@/components/post/comments-section";
+import { HashScroll } from "@/components/post/hash-scroll";
 import { PostContent } from "@/components/post/post-content";
 import { TocMobileBar, TocRail } from "@/components/post/toc";
 import { ViewTracker } from "@/components/post/view-tracker";
@@ -76,6 +77,7 @@ export default async function PostPage({ params }: Props) {
   return (
     <>
       <ViewTracker slug={post.slug} />
+      <HashScroll />
       {/* article column sits at true page center; TOC rail floats to its right (xl+) */}
       <div className="relative px-6 pb-[92px] pt-7 md:px-10 md:pt-14 xl:pb-16">
         <article className="mx-auto min-w-0 max-w-[720px]">

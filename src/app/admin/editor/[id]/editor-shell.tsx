@@ -126,7 +126,13 @@ export function EditorShell({
     extensions: [
       StarterKit.configure({
         codeBlock: false,
-        link: { openOnClick: false },
+        link: {
+          openOnClick: false,
+          // Tiptap's default URI validation rejects relative paths and strips
+          // their href on load — internal /writing/... links must survive
+          isAllowedUri: (url, ctx) =>
+            url.startsWith("/") || url.startsWith("#") || ctx.defaultValidate(url),
+        },
         // the post title is the page's only h1 — body headings start at h2
         heading: { levels: [2, 3] },
       }),
