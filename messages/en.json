@@ -72,10 +72,24 @@
     "title": "Projects",
     "subtitle": "Things I've founded, built, and kept running in production.",
     "caseStudy": "Case study",
+    "muroomStatus": "Wound down",
     "muroomDesc": "University-backed music-studio search platform, founded in a team of five. Owned backend search & all AWS infra: PostGIS viewport queries, 13 dynamic filters; Terraform prod + dev at ~$150/mo. Beta live in 3 weeks.",
     "fitnessDesc": "Multi-tenant REST API — 183 endpoints, 22 domains, one OAuth2 scope-based account system serving 4 client surfaces. 480× analytics speed-up, −58% AWS cost.",
     "siteDesc": "This blog. Next.js + Supabase on free tiers, custom block editor with markdown shortcuts, view counts and comments on Postgres.",
     "newsClassifierDesc": "2-month news-classification pipeline — React/Redux frontend, FastAPI model management, multiprocessing + SSE. 3rd place at Hecto Group showcase."
+  },
+  "projectDetail": {
+    "breadcrumb": "Projects",
+    "caseStudy": "Case study",
+    "product": "The product",
+    "architecture": "Architecture",
+    "stack": "Stack",
+    "roles": "Who did what",
+    "timeline": "Timeline",
+    "decisions": "Decisions worth reading about",
+    "readPost": "Read the post",
+    "readSeries": "Read the series",
+    "sayHi": "Say hi"
   },
   "aboutPage": {
     "title": "About",

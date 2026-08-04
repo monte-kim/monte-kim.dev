@@ -273,6 +273,14 @@ export function TableIcon(props: IconProps) {
   );
 }
 
+export function GithubIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M8 1.5a6.5 6.5 0 0 0-2 12.7c.3 0 .4-.1.4-.3v-1.2c-1.8.4-2.2-.8-2.2-.8-.3-.7-.7-.9-.7-.9-.6-.4 0-.4 0-.4.7 0 1 .7 1 .7.6 1 1.6.7 2 .5 0-.4.2-.7.4-.9-1.4-.2-2.9-.7-2.9-3.2 0-.7.2-1.3.7-1.7-.1-.2-.3-.9.1-1.8 0 0 .5-.2 1.8.7a6 6 0 0 1 3.2 0c1.2-.9 1.8-.7 1.8-.7.4.9.1 1.6.1 1.8.4.4.7 1 .7 1.7 0 2.5-1.5 3-2.9 3.2.2.2.4.6.4 1.1v1.9c0 .2.1.3.4.3A6.5 6.5 0 0 0 8 1.5z" />
+    </svg>
+  );
+}
+
 export function MusicIcon(props: IconProps) {
   return (
     <svg {...base(props)}>

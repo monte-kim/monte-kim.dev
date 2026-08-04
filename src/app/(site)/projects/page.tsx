@@ -19,9 +19,11 @@ type Project = {
   name: string;
   badge: string;
   badgeFilled?: boolean;
+  statusKey?: string; // second pill, i18n key in projectsPage
+  detailSlug?: string; // whole card links to /projects/[slug] (design 2b′)
   icon: ReactNode;
   stack: string[];
-  caseStudy?: string; // fallback sample slugs — swap for real posts once published
+  caseStudy?: string;
   github?: string;
 };
 
@@ -31,6 +33,8 @@ const PROJECTS: Project[] = [
     name: "Muroom",
     badge: "Founder",
     badgeFilled: true,
+    statusKey: "muroomStatus",
+    detailSlug: "muroom",
     icon: <MusicIcon size={16} />,
     stack: ["Spring Boot", "PostGIS", "Terraform"],
     // TODO caseStudy: "/writing/muroom-aws-on-pocket-money" once the post is published
@@ -76,24 +80,46 @@ export default async function ProjectsPage() {
         {PROJECTS.map((project) => (
           <div
             key={project.key}
-            className="flex flex-col gap-[10px] rounded-[12px] border border-hairline bg-surface p-6"
+            className={`group relative flex flex-col gap-[10px] rounded-[12px] border bg-surface p-6 ${
+              project.detailSlug
+                ? "border-hairline transition-all hover:border-border hover:shadow-card"
+                : "border-hairline"
+            }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-[10px]">
-                <span className="flex h-[34px] w-[34px] items-center justify-center rounded-[8px] border border-hairline text-ink">
-                  {project.icon}
+            {/* stretched link (design 2b′): whole card navigates to the detail */}
+            {project.detailSlug && (
+              <>
+                <Link
+                  href={`/projects/${project.detailSlug}`}
+                  aria-label={`${project.name} — details`}
+                  className="absolute inset-0 rounded-[12px]"
+                />
+                <span className="pointer-events-none absolute right-4 top-4 text-[#C9C8C2] transition-colors group-hover:text-ink dark:text-[#4a4a47] dark:group-hover:text-ink">
+                  <ArrowRightIcon size={15} />
                 </span>
-                <span className="text-[17px] font-bold">{project.name}</span>
-              </div>
+              </>
+            )}
+            <div className="flex items-center gap-[10px]">
+              <span className="flex h-[34px] w-[34px] items-center justify-center rounded-[8px] border border-hairline text-ink">
+                {project.icon}
+              </span>
+              <span className="text-[17px] font-bold">{project.name}</span>
+            </div>
+            <div className="flex gap-[6px]">
               <span
                 className={
                   project.badgeFilled
                     ? "rounded-full bg-ink px-2 py-[2px] font-mono text-[10.5px] text-bg"
-                    : "rounded-full border border-hairline bg-subtle px-2 py-[2px] font-mono text-[10.5px] text-body"
+                    : "rounded-full border border-hairline bg-subtle px-2 py-[2px] font-mono text-[10.5px] text-muted"
                 }
               >
                 {project.badge}
               </span>
+              {project.statusKey && (
+                <span className="rounded-full border border-hairline bg-subtle px-2 py-[2px] font-mono text-[10.5px] text-muted">
+                  {t(project.statusKey)}
+                </span>
+              )}
             </div>
             <div className="text-[14px] leading-[1.6] text-body">
               {t(`${project.key}Desc`)}
@@ -108,27 +134,28 @@ export default async function ProjectsPage() {
                 </span>
               ))}
             </div>
-            <div className="mt-auto flex gap-[14px] pt-2 text-[13px] font-semibold">
-              {project.caseStudy && (
-                <Link
-                  href={project.caseStudy}
-                  className="inline-flex items-center gap-[5px] hover:underline"
-                >
-                  {t("caseStudy")}
-                  <ArrowRightIcon size={12} />
-                </Link>
-              )}
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="text-muted hover:text-ink"
-                >
-                  GitHub ↗
-                </a>
-              )}
-            </div>
+            {(project.caseStudy || project.github) && (
+              <div className="relative z-10 mt-auto flex gap-[14px] border-t border-hairline pt-[10px] text-[13px] font-semibold">
+                {project.caseStudy && (
+                  <Link
+                    href={project.caseStudy}
+                    className="text-muted hover:text-ink"
+                  >
+                    {t("caseStudy")} ↗
+                  </Link>
+                )}
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="text-muted hover:text-ink"
+                  >
+                    GitHub ↗
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>

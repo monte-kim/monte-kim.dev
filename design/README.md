@@ -27,6 +27,15 @@ Decisions: **A안** — list/home stay text-only; cover shows on post detail + O
 - **2j** — Post detail: cover below meta row / above prose, content-column width, aspect-ratio 1200/630, 10px radius, 1px hairline border
 - **3e** — Mobile: post detail cover below meta (9px radius, padded, not full-bleed); editor states same as 2i but tap (not hover) reveals Replace/Remove
 
+## Project detail page (new screens 2k / 3f / 2b′)
+New route `/projects/[slug]` — the portfolio hub between the card grid (3s scan) and the blog case studies (10min深). Reference content: Muroom. Copy is approximate pending the final content package.
+- **2k** — Desktop, 760px content column. Section order: hero (breadcrumb ← Projects · title + role badge + "Wound down · Aug 2026" status pill · one-liner · Case study / GitHub actions) → 6-cell stat strip (3×2, same 1px-gap grid as home) → The product (2 paragraphs + 2 screenshots, 16:10) → Architecture (paragraph + diagram) → Stack (2×2 groups: App/Data/Infra/Ops, chip pattern) → Who did what (4 role cards, mine has 1.5px ink border) → Timeline (120px mono year + entry, same as About) → Decisions worth reading about (5 cards, each with optional "Read the post →") → footer CTA card (series + Say hi)
+- **Screenshot frame spec**: 1px #D9D8D3 border · 10px radius · card shadow · 16:10 aspect
+- **Architecture diagram visual language**: nodes = #FBFBFA fill, 1px #D9D8D3 border, 8px radius, mono 11.5px label; the request-path node on the critical path uses 1.5px #1A1A18 border + #FFFFFF fill + 600 weight; supporting services = same box with **dashed** border, laid out in a wrapping row below a dashed divider; connectors = 1px #D9D8D3 (vertical stubs + one centered horizontal branch, `width:50%; margin:0 auto` — do NOT build the branch from two flex halves with % margins, they collapse to zero width); caption line explains solid vs dashed
+- **3f** — Mobile: same order, stat strip becomes 2×2, single screenshot, diagram stacks vertically, roles collapse to 2 cards (mine + "Team of four"), timeline and decisions trimmed to 4/3 items
+- **2b′** — Projects cards: **the whole card is one link** to `/projects/[slug]`; arrow glyph top-right is the affordance (#C9C8C2 at rest → ink on hover). Footer links (GitHub, Case study) are nested targets that stop propagation, kept muted. No separate "Details →" row.
+- Dark mode: no special handling — existing token swaps cover it.
+
 ## Header (all public pages)
 60px, hairline bottom border. Left: TK monogram (26px, 1.5px border, 7px radius) + "monte-kim.dev" + nav (Home/Writing/Projects/About, active = ink+500). Right: EN|KO segmented toggle, theme icon button, "Say hi" filled button. Mobile (3a): 54px, hamburger.
 

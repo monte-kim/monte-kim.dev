@@ -15,7 +15,8 @@ Personal blog + portfolio for Tae Hwan "Monte" Kim. Design source: `Blog Portfol
 | `/` | 2a / 3a / 3d | hero, stat strip, recent posts, project preview |
 | `/writing` | 2e | search (⌘K), tag filter chips, pagination |
 | `/writing/[slug]` | 2f / 3b | TOC (desktop right rail, mobile bottom sheet), views, comments |
-| `/projects` | 2b | 4 cards |
+| `/projects` | 2b′ | card grid; whole card links to detail |
+| `/projects/[slug]` | 2k / 3f | portfolio hub: stats, screenshots, architecture, stack, roles, timeline, decisions |
 | `/about` | 2c | story, Now box, timeline, tools, CV download |
 | `/say-hi` | 2d | contact form → Supabase `messages` + email notify (Resend free) |
 | `/admin` | — | Supabase Auth email login, single user |
@@ -33,6 +34,10 @@ post_views(post_id pk, count bigint);          -- upsert +1 per view, dedupe by 
 comments(id, post_id, parent_id nullable, author_name, author_email nullable,
          body text, is_author bool default false, created_at);
 messages(id, name, email, body, created_at);   -- Say hi form
+projects(id, slug unique, name, one_liner_en, one_liner_ko, role_badge, status,
+         stats jsonb, body jsonb, screenshots jsonb, stack jsonb, roles jsonb,
+         timeline jsonb, decisions jsonb,  -- each decision may link a post slug
+         sort_order int, created_at, updated_at);
 ```
 RLS: public read on published posts/comments; writes via server actions (service role); admin mutations require auth.
 

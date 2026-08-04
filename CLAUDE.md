@@ -62,6 +62,8 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 
 - admin 모더레이션 (2026-07-29) — `/admin/comments`(댓글 삭제, author/reply 배지, 글 링크), `/admin/messages`(say-hi 메시지함, Reply=mailto/Delete), posts 목록에 글 삭제(Storage 이미지 정리 포함, confirm 후 cascade). 탭 네비 `admin-nav.tsx`, 삭제 버튼 `delete-button.tsx`(bound 서버 액션). **메시지 삭제만 service role 사용**(messages에 RLS delete 정책이 없어서 — 세션 검증 후 admin 클라이언트로 삭제).
 
+- **프로젝트 상세 페이지** (화면 2k/3f/2b′, 2026-08-04) — `/projects/[slug]` 정적 생성(DB 아님 — 도시에 검증 카피를 `src/data/project-details.ts`에 이중 언어로 내장, 캔버스 카피는 이 화면들에 한해 레이아웃 전용). 9섹션: 히어로(상태 필 `● Wound down`)·스탯 3+2·제품(실물 스크린샷 `public/projects/muroom/`)·CSS 아키텍처 다이어그램(실선=요청 경로/점선=보조)·스택 4그룹·역할 4카드(본인 카드 ink 보더)·타임라인(모바일 4개 축약)·의사결정 5(케이스 스터디 링크)·푸터 CTA. 카드(2b′)는 stretched-link로 전체 클릭(+화살표 어포던스), 상세 있는 프로젝트만. **미푸시** — 케이스 스터디 1편 발행 후 푸시 (링크 404 방지).
+
 미완료/백로그:
 1. ko.json 한국어 카피 검수 (Monte)
 2. `/projects` 카드 잔여 작업: **Muroom 문안은 도시에 검증본으로 교체 완료(2026-08-03, 근거: muroom-backend-bach/docs/dossier/10-projects-card.md)**. 남은 것 — ① Muroom 케이스 스터디 발행 후 `caseStudy: "/writing/muroom-aws-on-pocket-money"` 활성화 ② Muroom GitHub을 org 링크에서 backend 레포로 교체(8월 리소스 해체·키 폐기·공개 전환 후) ③ Fitness 케이스 스터디 링크(Moty 도시에 후) ④ News classifier GitHub 실제 저장소로
