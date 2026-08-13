@@ -43,11 +43,13 @@ const PROJECTS: Project[] = [
   },
   {
     key: "fitness",
-    name: "Fitness platform API",
+    name: "Fitness platform",
     badge: "Moty",
+    statusKey: "fitnessStatus",
+    detailSlug: "moty",
     icon: <ActivityIcon size={16} />,
-    stack: ["Java 21", "ECS", "TimescaleDB"],
-    // TODO caseStudy: link once the Moty case study is published
+    stack: ["Java 21", "TimescaleDB", "Next.js"],
+    // TODO caseStudy: "/writing/moty-pii-encryption-rollout" once published
   },
   {
     key: "site",

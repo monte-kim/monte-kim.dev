@@ -66,7 +66,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   return (
     <div className="pb-16 md:pb-0">
-      <div className="mx-auto max-w-[760px] px-6 pt-7 md:px-10 md:pt-[52px]">
+      <div className="mx-auto max-w-[760px] px-6 pb-10 pt-7 md:px-10 md:pb-16 md:pt-[52px]">
         {/* hero */}
         <Link
           href="/projects"
@@ -92,24 +92,30 @@ export default async function ProjectDetailPage({ params }: Props) {
         <p className="mb-5 text-pretty text-[15.5px] leading-[1.6] text-body md:mb-6 md:text-[18px]">
           {pick(project.oneLiner, locale)}
         </p>
-        <div className="mb-7 flex flex-col gap-[10px] md:mb-0 md:flex-row md:items-center md:gap-3">
-          <Link
-            href={project.caseStudyHref}
-            className="inline-flex items-center justify-center gap-2 rounded-[9px] bg-ink p-[13px] text-[14px] font-semibold text-bg md:rounded-[8px] md:px-[18px] md:py-[10px]"
-          >
-            {t("caseStudy")}
-            <ArrowRightIcon size={14} />
-          </Link>
-          <a
-            href={project.githubHref}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex items-center justify-center gap-2 rounded-[9px] border border-border p-[13px] text-[14px] font-semibold md:rounded-[8px] md:px-[18px] md:py-[10px]"
-          >
-            <GithubIcon size={15} />
-            GitHub ↗
-          </a>
-        </div>
+        {(project.caseStudyHref || project.githubHref) && (
+          <div className="mb-7 flex flex-col gap-[10px] md:mb-0 md:flex-row md:items-center md:gap-3">
+            {project.caseStudyHref && (
+              <Link
+                href={project.caseStudyHref}
+                className="inline-flex items-center justify-center gap-2 rounded-[9px] bg-ink p-[13px] text-[14px] font-semibold text-bg md:rounded-[8px] md:px-[18px] md:py-[10px]"
+              >
+                {t("caseStudy")}
+                <ArrowRightIcon size={14} />
+              </Link>
+            )}
+            {project.githubHref && (
+              <a
+                href={project.githubHref}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center justify-center gap-2 rounded-[9px] border border-border p-[13px] text-[14px] font-semibold md:rounded-[8px] md:px-[18px] md:py-[10px]"
+              >
+                <GithubIcon size={15} />
+                GitHub ↗
+              </a>
+            )}
+          </div>
+        )}
 
         {/* stat strip — 5 stats: 3 + 2 on desktop, 2-col on mobile */}
         <div className="md:mt-10">
@@ -143,19 +149,21 @@ export default async function ProjectDetailPage({ params }: Props) {
               {pick(paragraph, locale)}
             </p>
           ))}
-          <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-[14px]">
-            {project.screenshots.map((shot) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={shot.src}
-                src={shot.src}
-                alt={pick(shot.alt, locale)}
-                className={`aspect-[16/10] w-full rounded-[9px] border border-border object-cover shadow-card md:rounded-[10px] ${
-                  shot.mobile ? "" : "hidden md:block"
-                }`}
-              />
-            ))}
-          </div>
+          {project.screenshots.length > 0 && (
+            <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-[14px]">
+              {project.screenshots.map((shot) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={shot.src}
+                  src={shot.src}
+                  alt={pick(shot.alt, locale)}
+                  className={`aspect-[16/10] w-full rounded-[9px] border border-border object-cover shadow-card md:rounded-[10px] ${
+                    shot.mobile ? "" : "hidden md:block"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </section>
 
         {/* architecture */}
@@ -311,8 +319,9 @@ export default async function ProjectDetailPage({ params }: Props) {
           </div>
         </section>
 
-        {/* footer CTA */}
-        <section className="mt-7 pb-10 md:mt-12 md:pb-16">
+        {/* footer CTA — hidden until the series starts publishing */}
+        {project.footerCta.seriesHref && (
+        <section className="mt-7 md:mt-12">
           <div className="flex flex-col gap-5 rounded-[12px] border border-hairline bg-surface p-6 md:flex-row md:items-center md:justify-between md:gap-6 md:p-7">
             <div>
               <div className="mb-[5px] text-[16px] font-bold md:text-[17px]">
@@ -339,6 +348,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             </div>
           </div>
         </section>
+        )}
       </div>
     </div>
   );
