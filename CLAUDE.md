@@ -64,6 +64,8 @@ Tae Hwan "Monte" Kim의 개인 블로그 + 포트폴리오. 2026년 10월 영국
 
 - **프로젝트 상세 페이지** (화면 2k/3f/2b′, 2026-08-04) — `/projects/[slug]` 정적 생성(DB 아님 — 도시에 검증 카피를 `src/data/project-details.ts`에 이중 언어로 내장, 캔버스 카피는 이 화면들에 한해 레이아웃 전용). 9섹션: 히어로(상태 필 `● Wound down`)·스탯 3+2·제품(실물 스크린샷 `public/projects/muroom/`)·CSS 아키텍처 다이어그램(실선=요청 경로/점선=보조)·스택 4그룹·역할 4카드(본인 카드 ink 보더)·타임라인(모바일 4개 축약)·의사결정 5(케이스 스터디 링크)·푸터 CTA. 카드(2b′)는 stretched-link로 전체 클릭(+화살표 어포던스), 상세 있는 프로젝트만. **미푸시** — 케이스 스터디 1편 발행 후 푸시 (링크 404 방지).
 
+- **Moty 프로젝트 반영** (2026-08-13, 근거: ~/Downloads/moty-dossier/ 10·11·12) — `/projects/moty` 상세(스크린샷 0장·GitHub 없음·발행 전 케이스 스터디/푸터 CTA 숨김 — 빈 값 조건부 렌더), fitness 카드 풀스택 개편(206 엔드포인트·"In production" 필·detailSlug), **480×(근거 없음 판정) → ~590×(실측) 전면 교체**(홈 스탯 포함). **Moty 블로그 10편 draft 주입됨**(EN/KO, slug `moty-*`) — 발행 순서 1→2→3→4→5→6→8→(prod 배포 후)7·9·10, 발행 시마다 12-blog-handoff §3의 연쇄 갱신(1편: 카드/상세 caseStudy·footerCta 활성화 + PII 딥링크, 4편: Muroom 상호 링크, 5편: 사전집계 딥링크).
+
 미완료/백로그:
 1. ko.json 한국어 카피 검수 (Monte)
 2. `/projects` 카드 잔여 작업: **Muroom 문안은 도시에 검증본으로 교체 완료(2026-08-03, 근거: muroom-backend-bach/docs/dossier/10-projects-card.md)**. 남은 것 — ① Muroom 케이스 스터디 발행 후 `caseStudy: "/writing/muroom-aws-on-pocket-money"` 활성화 ② Muroom GitHub을 org 링크에서 backend 레포로 교체(8월 리소스 해체·키 폐기·공개 전환 후) ③ Fitness 케이스 스터디 링크(Moty 도시에 후) ④ News classifier GitHub 실제 저장소로
