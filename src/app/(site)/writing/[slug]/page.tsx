@@ -21,7 +21,7 @@ export const revalidate = 60;
 type Props = { params: Promise<{ slug: string }> };
 
 const SITE_DESCRIPTION =
-  "Production war stories by Tae Hwan \"Monte\" Kim — backend architecture, AWS, and the occasional retrospective.";
+  "Production war stories by Tae Hwan \"Monte\" Kim. Backend architecture, AWS, and the occasional retrospective.";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

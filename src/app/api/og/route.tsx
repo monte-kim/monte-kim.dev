@@ -267,7 +267,7 @@ function SiteCard() {
             display: "flex",
           }}
         >
-          Production war stories — backend architecture, AWS, and the
+          Production war stories: backend architecture, AWS, and the
           occasional retrospective.
         </div>
         <div

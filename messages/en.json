@@ -15,15 +15,15 @@
     "introShort": "Software engineer in Seoul, moving to the UK in October 2026. Spring Boot APIs on AWS, Next.js on top.",
     "readBlog": "Read the blog",
     "sayHi": "Say hi",
-    "availability": "Available from Oct 2026 · YMS visa — no sponsorship needed",
+    "availability": "Available from Oct 2026 · YMS visa, no sponsorship needed",
     "availabilityShort": "Oct 2026 · YMS visa · no sponsorship needed",
     "stat1Value": "~590×",
-    "stat1Label": "faster analytics — measured",
+    "stat1Label": "faster analytics, measured",
     "stat1LabelShort": "analytics",
     "stat2Value": "−58%",
     "stat2Label": "AWS cost after redesign",
     "stat2LabelShort": "AWS cost",
-    "stat3Value": "183",
+    "stat3Value": "206",
     "stat3Label": "endpoints, 22 domains, one auth",
     "stat3LabelShort": "endpoints",
     "writing": "Writing",
@@ -34,9 +34,9 @@
     "minRead": "{minutes} min",
     "views": "{count} views",
     "muroomTitle": "Muroom",
-    "muroomDesc": "Music-studio rental platform I founded. PostGIS map search, 13 filters, 120 endpoints.",
+    "muroomDesc": "Music-studio search platform I founded. PostGIS map search, 13 filters, 130 studios.",
     "fitnessTitle": "Fitness platform API",
-    "fitnessDesc": "Multi-tenant REST API at Moty — OAuth2 scopes, 4 client surfaces, zero-downtime CI/CD."
+    "fitnessDesc": "Multi-tenant REST API at Moty: OAuth2 scopes, 4 client surfaces, zero-downtime CI/CD."
   },
   "writingPage": {
     "title": "Writing",
@@ -64,8 +64,8 @@
     "share": "Share",
     "error": {
       "invalid": "Please fill in your name and a comment.",
-      "rateLimited": "Too many comments — please try again in a few minutes.",
-      "unavailable": "Comments aren't available right now — please try again later."
+      "rateLimited": "Too many comments. Please try again in a few minutes.",
+      "unavailable": "Comments aren't available right now. Please try again later."
     }
   },
   "projectsPage": {
@@ -75,9 +75,9 @@
     "muroomStatus": "Wound down",
     "muroomDesc": "University-backed music-studio search platform, founded in a team of five. Owned backend search & all AWS infra: PostGIS viewport queries, 13 dynamic filters; Terraform prod + dev at ~$150/mo. Beta live in 3 weeks.",
     "fitnessStatus": "In production",
-    "fitnessDesc": "Fitness-platform backend and both its web frontends, solo-built. Multi-tenant API — 206 endpoints, 22 domains, one OAuth2 scope-based account system serving 4 client surfaces. ~590× faster analytics (measured), −58% AWS cost.",
+    "fitnessDesc": "Fitness-platform backend and both its web frontends, solo-built. Multi-tenant API: 206 endpoints, 22 domains, one OAuth2 scope-based account system serving 4 client surfaces. ~590× faster analytics (measured), −58% AWS cost.",
     "siteDesc": "This blog. Next.js + Supabase on free tiers, custom block editor with markdown shortcuts, view counts and comments on Postgres.",
-    "newsClassifierDesc": "2-month news-classification pipeline — React/Redux frontend, FastAPI model management, multiprocessing + SSE. 3rd place at Hecto Group showcase."
+    "newsClassifierDesc": "2-month news-classification pipeline: React/Redux frontend, FastAPI model management, multiprocessing + SSE. 3rd place at Hecto Group showcase."
   },
   "projectDetail": {
     "breadcrumb": "Projects",
@@ -94,10 +94,10 @@
   },
   "aboutPage": {
     "title": "About",
-    "p1": "I'm Tae Hwan Kim — Monte to most people. I'm a software engineer — backend-leaning, full-stack in practice — who likes owning the whole path: Terraform and CI/CD at the bottom, Spring Boot APIs in the middle, Next.js consoles on top.",
-    "p2": "Before software I wrote music — released tracks, scored independent films, produced ad music. That's what led me to found Muroom, a studio-rental platform for musicians. I still think building products is closer to composing than to engineering textbooks admit.",
+    "p1": "I'm Tae Hwan Kim, Monte to most people. I'm a software engineer, backend by preference and full-stack in practice, and I like owning the whole path: Terraform and CI/CD at the bottom, Spring Boot APIs in the middle, Next.js consoles on top.",
+    "p2": "Before software I wrote music: released tracks, film scores, ad music. That's what led me to found Muroom, a studio search platform for musicians. I still think building products is closer to composing than engineering textbooks admit.",
     "nowTitle": "Now",
-    "nowBody": "Building the fitness platform at Moty in Seoul. Moving to the UK in <b>October 2026</b> on a Youth Mobility Scheme visa — no sponsorship needed. Open to software engineering roles (backend / full-stack) in London.",
+    "nowBody": "Building the fitness platform at Moty in Seoul. Moving to the UK in <b>October 2026</b> on a Youth Mobility Scheme visa, so no sponsorship is needed. Open to software engineering roles (backend / full-stack) in London.",
     "pathTitle": "Path so far",
     "timeline": {
       "moty": {
@@ -108,7 +108,7 @@
       "muroom": {
         "period": "2025 — 26",
         "role": "Founder & Backend Lead · Muroom",
-        "desc": "University-backed startup; led a team of six to an MVP in 5 months."
+        "desc": "University-backed startup; five of us took a beta live in three weeks."
       },
       "nhn": {
         "period": "2024",
@@ -135,11 +135,11 @@
     "messagePlaceholder": "We're looking for a backend engineer who…",
     "send": "Send message",
     "sending": "Sending…",
-    "success": "Thanks — your message is on its way. I'll get back to you soon.",
+    "success": "Thanks! Your message is on its way. I'll get back to you soon.",
     "error": {
       "invalid": "Please fill in all fields with a valid email.",
-      "rateLimited": "Too many messages — please try again in a few minutes.",
-      "unavailable": "The form isn't available right now — email me instead at monte6198@gmail.com."
+      "rateLimited": "Too many messages. Please try again in a few minutes.",
+      "unavailable": "The form isn't available right now. Email me instead at monte6198@gmail.com."
     }
   },
   "footer": {

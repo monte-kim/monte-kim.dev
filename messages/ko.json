@@ -15,15 +15,15 @@
     "introShort": "서울의 소프트웨어 엔지니어, 2026년 10월 영국 이주 예정. AWS 위의 Spring Boot API, 그 위의 Next.js.",
     "readBlog": "블로그 읽기",
     "sayHi": "인사하기",
-    "availability": "2026년 10월부터 가능 · YMS 비자 — 스폰서십 불필요",
+    "availability": "2026년 10월부터 가능 · YMS 비자 · 스폰서십 불필요",
     "availabilityShort": "2026년 10월 · YMS 비자 · 스폰서십 불필요",
     "stat1Value": "~590×",
-    "stat1Label": "분석 쿼리 가속 — 실측",
+    "stat1Label": "분석 쿼리 가속(실측)",
     "stat1LabelShort": "분석 속도",
     "stat2Value": "−58%",
     "stat2Label": "재설계 후 AWS 비용",
     "stat2LabelShort": "AWS 비용",
-    "stat3Value": "183",
+    "stat3Value": "206",
     "stat3Label": "엔드포인트, 22개 도메인, 하나의 인증",
     "stat3LabelShort": "엔드포인트",
     "writing": "글",
@@ -34,13 +34,13 @@
     "minRead": "{minutes}분",
     "views": "조회 {count}",
     "muroomTitle": "Muroom",
-    "muroomDesc": "직접 창업한 음악 연습실 대여 플랫폼. PostGIS 지도 검색, 13개 필터, 120개 엔드포인트.",
+    "muroomDesc": "직접 창업한 합주실 검색 플랫폼. PostGIS 지도 검색, 13개 필터, 130개 스튜디오.",
     "fitnessTitle": "Fitness platform API",
-    "fitnessDesc": "Moty의 멀티테넌트 REST API — OAuth2 스코프, 4개 클라이언트, 무중단 CI/CD."
+    "fitnessDesc": "Moty의 멀티테넌트 REST API. OAuth2 스코프, 4개 클라이언트, 무중단 CI/CD."
   },
   "writingPage": {
     "title": "글",
-    "subtitle": "프로덕션 실전 기록 — 백엔드 아키텍처, AWS, 그리고 가끔의 회고.",
+    "subtitle": "프로덕션 실전 기록. 백엔드 아키텍처, AWS, 그리고 가끔의 회고.",
     "searchPlaceholder": "글 검색…",
     "all": "전체",
     "readTime": "{minutes}분 소요",
@@ -64,8 +64,8 @@
     "share": "공유",
     "error": {
       "invalid": "이름과 댓글 내용을 입력해주세요.",
-      "rateLimited": "댓글이 너무 많습니다 — 몇 분 후 다시 시도해주세요.",
-      "unavailable": "지금은 댓글을 등록할 수 없습니다 — 나중에 다시 시도해주세요."
+      "rateLimited": "댓글이 너무 많습니다. 몇 분 후 다시 시도해주세요.",
+      "unavailable": "지금은 댓글을 등록할 수 없습니다. 나중에 다시 시도해주세요."
     }
   },
   "projectsPage": {
@@ -73,11 +73,11 @@
     "subtitle": "직접 창업하고, 만들고, 프로덕션에서 운영해온 것들.",
     "caseStudy": "케이스 스터디",
     "muroomStatus": "서비스 종료",
-    "muroomDesc": "대학 창업지원을 받은 합주실 검색 플랫폼, 5인 팀 창업(대표). 백엔드 검색과 AWS 인프라 전체 담당 — PostGIS 뷰포트 쿼리·13개 동적 필터, Terraform으로 prod+dev 월 ~$150 운영. 3주 만에 베타 배포.",
+    "muroomDesc": "대학 창업지원을 받은 합주실 검색 플랫폼, 5인 팀 창업(대표). 백엔드 검색과 AWS 인프라 전체 담당: PostGIS 뷰포트 쿼리·13개 동적 필터, Terraform으로 prod+dev 월 ~$150 운영. 3주 만에 베타 배포.",
     "fitnessStatus": "프로덕션 운영 중",
-    "fitnessDesc": "피트니스 플랫폼의 백엔드와 웹 프론트 2종을 단독 구축. 멀티테넌트 API — 206개 엔드포인트, 22개 도메인, OAuth2 스코프 기반 단일 계정 시스템으로 4개 클라이언트 지원. 분석 쿼리 ~590× 가속(실측), AWS 비용 −58%.",
+    "fitnessDesc": "피트니스 플랫폼의 백엔드와 웹 프론트 2종을 단독 구축. 멀티테넌트 API: 206개 엔드포인트, 22개 도메인, OAuth2 스코프 기반 단일 계정 시스템으로 4개 클라이언트 지원. 분석 쿼리 ~590× 가속(실측), AWS 비용 −58%.",
     "siteDesc": "이 블로그. 무료 티어의 Next.js + Supabase, 마크다운 단축키를 지원하는 커스텀 블록 에디터, Postgres 기반 조회수·댓글.",
-    "newsClassifierDesc": "2개월간의 뉴스 분류 파이프라인 — React/Redux 프론트엔드, FastAPI 모델 관리, 멀티프로세싱 + SSE. Hecto Group 쇼케이스 3위."
+    "newsClassifierDesc": "2개월간의 뉴스 분류 파이프라인: React/Redux 프론트엔드, FastAPI 모델 관리, 멀티프로세싱 + SSE. Hecto Group 쇼케이스 3위."
   },
   "projectDetail": {
     "breadcrumb": "프로젝트",
@@ -94,10 +94,10 @@
   },
   "aboutPage": {
     "title": "소개",
-    "p1": "김태환입니다 — 대부분 몬테라고 불러요. 백엔드 지향이지만 실무에선 풀스택인 소프트웨어 엔지니어로, 전체 경로를 직접 책임지는 걸 좋아합니다. 맨 아래엔 Terraform과 CI/CD, 가운데엔 Spring Boot API, 맨 위엔 Next.js 콘솔.",
-    "p2": "소프트웨어 이전엔 음악을 만들었습니다 — 트랙을 발매하고, 독립영화 음악을 만들고, 광고 음악을 제작했어요. 그 경험이 뮤지션을 위한 연습실 대여 플랫폼 Muroom 창업으로 이어졌습니다. 지금도 제품을 만드는 일은 공학 교과서가 인정하는 것보다 작곡에 더 가깝다고 생각합니다.",
+    "p1": "김태환입니다. 대부분 몬테라고 불러요. 백엔드 지향이지만 실무에선 풀스택인 소프트웨어 엔지니어로, 전체 경로를 직접 책임지는 걸 좋아합니다. 맨 아래엔 Terraform과 CI/CD, 가운데엔 Spring Boot API, 맨 위엔 Next.js 콘솔.",
+    "p2": "소프트웨어 이전엔 음악을 만들었습니다. 트랙을 발매하고, 독립영화 음악을 만들고, 광고 음악을 제작했어요. 그 경험이 뮤지션을 위한 합주실 검색 플랫폼 Muroom 창업으로 이어졌습니다. 지금도 제품을 만드는 일은 공학 교과서가 인정하는 것보다 작곡에 더 가깝다고 생각합니다.",
     "nowTitle": "Now",
-    "nowBody": "서울 Moty에서 피트니스 플랫폼을 만들고 있습니다. <b>2026년 10월</b> Youth Mobility Scheme 비자로 영국 이주 — 스폰서십이 필요 없습니다. 런던의 소프트웨어 엔지니어링 포지션(백엔드/풀스택)에 열려 있습니다.",
+    "nowBody": "서울 Moty에서 피트니스 플랫폼을 만들고 있습니다. <b>2026년 10월</b> Youth Mobility Scheme 비자로 영국 이주라 스폰서십이 필요 없습니다. 런던의 소프트웨어 엔지니어링 포지션(백엔드/풀스택)에 열려 있습니다.",
     "pathTitle": "지나온 길",
     "timeline": {
       "moty": {
@@ -108,7 +108,7 @@
       "muroom": {
         "period": "2025 — 26",
         "role": "Founder & Backend Lead · Muroom",
-        "desc": "대학 지원 스타트업. 6인 팀을 이끌어 5개월 만에 MVP 출시."
+        "desc": "대학 지원 스타트업. 5인 팀으로 3주 만에 베타 출시."
       },
       "nhn": {
         "period": "2024",
@@ -135,11 +135,11 @@
     "messagePlaceholder": "백엔드 엔지니어를 찾고 있는데…",
     "send": "메시지 보내기",
     "sending": "보내는 중…",
-    "success": "감사합니다 — 메시지가 전달됐어요. 곧 답장드릴게요.",
+    "success": "감사합니다! 메시지가 전달됐어요. 곧 답장드릴게요.",
     "error": {
       "invalid": "모든 항목을 올바른 이메일과 함께 입력해주세요.",
-      "rateLimited": "메시지가 너무 많습니다 — 몇 분 후 다시 시도해주세요.",
-      "unavailable": "지금은 폼을 사용할 수 없습니다 — monte6198@gmail.com로 메일 주세요."
+      "rateLimited": "메시지가 너무 많습니다. 몇 분 후 다시 시도해주세요.",
+      "unavailable": "지금은 폼을 사용할 수 없습니다. monte6198@gmail.com로 메일 주세요."
     }
   },
   "footer": {
