@@ -317,7 +317,7 @@ const MOTY: ProjectDetail = {
     en: "The data platform behind a digital weight machine: one multi-tenant API and two Next.js frontends, solo-built and running in production.",
     ko: "디지털 웨이트 머신의 데이터 플랫폼. 멀티테넌트 API 하나와 Next.js 프론트 2종, 단독 구축으로 프로덕션 운영 중.",
   },
-  caseStudyHref: "", // TODO: "/writing/moty-pii-encryption-rollout" once published
+  caseStudyHref: "/writing/moty-pii-encryption-rollout",
   githubHref: "", // company-private repos — button hidden
   stats: [
     { value: "~590×", label: { en: "faster analytics, measured", ko: "분석 쿼리 가속(실측)" } },
@@ -483,6 +483,7 @@ const MOTY: ProjectDetail = {
         en: "TimescaleDB doesn't run on RDS, so raw sensor data was headed for a separate managed time-series cloud whose nearest region was Tokyo. I built that split; then cost optimization killed RDS a month later, and the split lost its reason: one self-hosted Postgres carries the OLTP tables and the hypertables both. What mattered was keeping the reversal cheap.",
         ko: "TimescaleDB는 RDS에서 돌지 않아, 원시 센서 데이터는 별도의 관리형 시계열 클라우드로 갈 예정이었습니다. 가장 가까운 리전이 도쿄였죠. 실제로 그 분리를 구축했고, 한 달 뒤 비용 최적화가 RDS를 없애자 분리의 이유도 사라졌습니다. 자가 운영 Postgres 하나가 OLTP 테이블과 하이퍼테이블을 함께 감당합니다. 중요했던 건 되돌리는 비용을 싸게 유지한 쪽이었습니다.",
       },
+      href: "/writing/moty-timeseries-preaggregation#three-layers-between-analytics-and-the-firehose",
     },
     {
       title: { en: "Pre-aggregate at write time, not query time", ko: "쿼리 시점이 아니라 쓰기 시점에 집계" },
@@ -490,6 +491,7 @@ const MOTY: ProjectDetail = {
         en: "Rep boundaries and per-mode metrics are domain logic, not expressible in a time-bucket. So every set write collapses its raw stream into ~24 scalar columns plus a per-rep JSONB envelope with index pointers; analytics never touch the hypertable. ~590× faster, measured. The cost is an append-only aggregate contract: past data can't be recomputed.",
         ko: "rep 경계와 모드별 메트릭은 도메인 로직이라 time-bucket으로 표현되지 않습니다. 그래서 세트 쓰기마다 원시 스트림을 ~24개 스칼라 컬럼과 인덱스 포인터를 담은 rep별 JSONB 봉투로 환원하고, 분석은 하이퍼테이블을 건드리지 않습니다. 실측 ~590× 가속. 대가는 과거 데이터 재계산이 불가한 append-only 집계 계약입니다.",
       },
+      href: "/writing/moty-timeseries-preaggregation#three-layers-between-analytics-and-the-firehose",
     },
     {
       title: { en: "A custom OAuth2-shaped token service", ko: "자체 OAuth2형 토큰 서비스" },
@@ -504,6 +506,7 @@ const MOTY: ProjectDetail = {
         en: 'Claims go stale; role changes and dismissals must bite instantly, so membership is resolved per request. On the frontend the tenant id never reaches the browser URL either; an httpOnly cookie injects it at the BFF. Three different answers to the same question, and each one has a reason.',
         ko: '클레임은 낡습니다. 역할 변경과 해촉은 즉시 반영돼야 하므로 소속은 매 요청 해석합니다. 프론트에서도 테넌트 ID는 브라우저 URL에 닿지 않습니다. httpOnly 쿠키가 BFF에서 주입합니다. 같은 질문에 세 가지 답이 있고, 셋 다 이유가 있습니다.',
       },
+      href: "/writing/moty-where-tenant-id-lives",
     },
     {
       title: { en: "PII encryption in nine zero-downtime steps", ko: "9단계 무중단 PII 암호화" },
@@ -511,6 +514,7 @@ const MOTY: ProjectDetail = {
         en: "AES-256-GCM breaks equality search and UNIQUE; an HMAC blind index restores both. Shipped expand→contract on a rolling deploy: feature gates, dual writes, batch backfill, read-path switch. Nine steps, each a traceable commit, each reversible without a redeploy.",
         ko: "AES-256-GCM은 동등 검색과 UNIQUE를 깨뜨리고, HMAC 블라인드 인덱스가 둘 다 복원합니다. 롤링 배포 위에서 expand→contract로 출시했습니다: 피처 게이트, 이중 쓰기, 배치 백필, 읽기 경로 전환. 9단계, 단계마다 추적 가능한 커밋, 단계마다 재배포 없이 롤백 가능.",
       },
+      href: "/writing/moty-pii-encryption-rollout#nine-steps-because-the-deploy-is-rolling",
     },
   ],
   footerCta: {
@@ -519,7 +523,7 @@ const MOTY: ProjectDetail = {
       en: "Zero-downtime PII encryption, solo contract discipline, a 9.7MB font hunt, −58% AWS with guardrails, and more as the series grows.",
       ko: "무중단 PII 암호화, 1인 풀스택의 계약 규율, 9.7MB 폰트 추적기, 가드레일을 갖춘 AWS −58%, 그리고 계속 이어지는 연재.",
     },
-    seriesHref: "", // TODO: "/writing/moty-pii-encryption-rollout" once published — section hidden until then
+    seriesHref: "/writing/moty-pii-encryption-rollout",
   },
 };
 

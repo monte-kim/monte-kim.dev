@@ -51,7 +51,7 @@ const PROJECTS: Project[] = [
     detailSlug: "moty",
     icon: <ActivityIcon size={16} />,
     stack: ["Java 21", "TimescaleDB", "Next.js"],
-    // TODO caseStudy: "/writing/moty-pii-encryption-rollout" once published
+    caseStudy: "/writing/moty-pii-encryption-rollout",
   },
   {
     key: "site",
