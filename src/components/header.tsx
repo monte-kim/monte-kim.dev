@@ -1,5 +1,6 @@
 "use client";
 
+import { LogoMark } from "@/components/logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -71,9 +72,7 @@ export function Header() {
       <div className="hidden h-[60px] items-center justify-between px-10 md:flex">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-[9px]">
-            <span className="flex h-[26px] w-[26px] items-center justify-center rounded-[7px] border-[1.5px] border-ink text-[12px] font-bold tracking-[-0.5px]">
-              TK
-            </span>
+            <LogoMark size={26} className="text-ink" />
             <span className="text-[15px] font-semibold">monte-kim.dev</span>
           </Link>
           <nav className="flex gap-6 text-[14px] text-muted">
@@ -103,9 +102,7 @@ export function Header() {
       {/* Mobile — 54px */}
       <div className="flex h-[54px] items-center justify-between px-5 md:hidden">
         <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-[6px] border-[1.5px] border-ink text-[11px] font-bold tracking-[-0.5px]">
-            TK
-          </span>
+          <LogoMark size={24} className="text-ink" />
           <span className="text-[14px] font-semibold">monte-kim.dev</span>
         </Link>
         <div className="flex items-center gap-[14px]">

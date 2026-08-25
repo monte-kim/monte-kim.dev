@@ -87,25 +87,19 @@ function Frame({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Monogram({ size, border, radius, fontSize }: { size: number; border: number; radius: number; fontSize: number }) {
+const LOGO_PATH =
+  "M 248 75 L 115 320 L 248 320 Z M 305 145 L 305 320 L 415 305 Z M 78 375 L 452 360 L 410 452 L 110 452 Z";
+
+function Monogram({ size }: { size: number; border: number; radius: number; fontSize: number }) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" stroke="${INK}" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"><path d="${LOGO_PATH}"/></svg>`;
   return (
-    <div
-      style={{
-        width: size,
-        height: size,
-        border: `${border}px solid ${INK}`,
-        borderRadius: radius,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize,
-        fontWeight: 700,
-        letterSpacing: -1,
-        color: INK,
-      }}
-    >
-      TK
-    </div>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      width={size}
+      height={size}
+      src={`data:image/svg+xml,${encodeURIComponent(svg)}`}
+      alt=""
+    />
   );
 }
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>
+    path { stroke: #1a1a18; }
+    @media (prefers-color-scheme: dark) {
+      path { stroke: #edece8; }
+    }
+  </style>
+  <path
+    d="M 248 75 L 115 320 L 248 320 Z
+       M 305 145 L 305 320 L 415 305 Z
+       M 78 375 L 452 360 L 410 452 L 110 452 Z"
+    fill="none"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
