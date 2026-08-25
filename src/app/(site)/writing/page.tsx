@@ -7,6 +7,8 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Writing — monte-kim.dev",
+  description:
+    "Production war stories by Tae Hwan \"Monte\" Kim. Backend architecture, AWS, and the occasional retrospective.",
 };
 
 export default async function WritingPage() {

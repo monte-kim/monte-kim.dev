@@ -22,6 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${project.name} — Projects — monte-kim.dev`,
     description: project.oneLiner.en,
+    openGraph: {
+      title: project.name,
+      description: project.oneLiner.en,
+      siteName: "monte-kim.dev",
+      images: [{ url: `/api/og?project=${slug}`, width: 1200, height: 630 }],
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 

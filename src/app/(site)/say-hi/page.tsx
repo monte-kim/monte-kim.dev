@@ -5,6 +5,8 @@ import { SayHiForm } from "./say-hi-form";
 
 export const metadata: Metadata = {
   title: "Say hi — monte-kim.dev",
+  description:
+    "Hiring in London, curious about a post, or want to talk PostGIS or music production? I reply to everything.",
 };
 
 export default async function SayHiPage() {

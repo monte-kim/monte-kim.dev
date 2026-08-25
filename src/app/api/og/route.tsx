@@ -1,10 +1,12 @@
 import { ImageResponse } from "next/og";
+import { PROJECT_DETAILS, type ProjectDetail } from "@/data/project-details";
 
 export const runtime = "edge";
 
 /**
  * Dynamic OG cards (1200×630) in the site's design language.
- * `/api/og` → site default card · `/api/og?slug=x` → post card.
+ * `/api/og` → site default card · `/api/og?slug=x` → post card ·
+ * `/api/og?project=x` → project card.
  * Posts with an uploaded cover use the cover instead (see generateMetadata).
  */
 
@@ -230,6 +232,140 @@ function PostCard({ post }: { post: PostData }) {
   );
 }
 
+function ProjectCard({ project }: { project: ProjectDetail }) {
+  // "●" isn't in the latin font subsets — strip it from the pill text
+  const status = project.statusPill.en.replace("●", "").trim();
+  const stats = project.stats.slice(0, 3);
+
+  return (
+    <Frame>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          width: "100%",
+          padding: "76px 84px",
+        }}
+      >
+        {/* header */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+            <Monogram size={54} border={3} radius={14} fontSize={24} />
+            <div style={{ fontSize: 27, fontWeight: 700, color: INK, display: "flex" }}>
+              monte-kim.dev
+            </div>
+          </div>
+          <div
+            style={{
+              fontFamily: '"JetBrains Mono"',
+              fontSize: 19,
+              color: MUTED,
+              border: `1.5px solid ${BORDER}`,
+              borderRadius: 100,
+              padding: "7px 18px",
+              display: "flex",
+            }}
+          >
+            {status}
+          </div>
+        </div>
+
+        {/* title block */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+          <div
+            style={{
+              width: 48,
+              height: 7,
+              background: INK,
+              borderRadius: 4,
+              display: "flex",
+            }}
+          />
+          <div style={{ display: "flex", gap: 10 }}>
+            <div
+              style={{
+                fontFamily: '"JetBrains Mono"',
+                fontSize: 19,
+                color: MUTED,
+                border: `1.5px solid ${BORDER}`,
+                borderRadius: 8,
+                padding: "7px 16px",
+                display: "flex",
+              }}
+            >
+              {project.badge}
+            </div>
+          </div>
+          <div
+            style={{
+              fontSize: 64,
+              fontWeight: 700,
+              letterSpacing: -2.2,
+              lineHeight: 1.1,
+              color: INK,
+              maxWidth: 1000,
+              display: "flex",
+            }}
+          >
+            {project.name}
+          </div>
+          <div
+            style={{
+              fontSize: 25,
+              fontWeight: 500,
+              color: MUTED,
+              lineHeight: 1.45,
+              maxWidth: 940,
+              display: "flex",
+            }}
+          >
+            {project.oneLiner.en}
+          </div>
+        </div>
+
+        {/* footer: key stats */}
+        <div style={{ display: "flex", gap: 52 }}>
+          {stats.map((s) => (
+            <div
+              key={s.value}
+              style={{ display: "flex", flexDirection: "column", gap: 7 }}
+            >
+              <div
+                style={{
+                  fontSize: 33,
+                  fontWeight: 700,
+                  letterSpacing: -1,
+                  color: INK,
+                  display: "flex",
+                }}
+              >
+                {s.value}
+              </div>
+              <div
+                style={{
+                  fontFamily: '"JetBrains Mono"',
+                  fontSize: 15,
+                  color: MUTED,
+                  display: "flex",
+                }}
+              >
+                {s.label.en}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Frame>
+  );
+}
+
 function SiteCard() {
   return (
     <Frame>
@@ -288,8 +424,10 @@ function SiteCard() {
 
 export async function GET(req: Request) {
   const { searchParams, origin } = new URL(req.url);
+  const projectSlug = searchParams.get("project");
+  const project = projectSlug ? PROJECT_DETAILS[projectSlug] : undefined;
   const slug = searchParams.get("slug");
-  const post = slug ? await fetchPost(slug) : null;
+  const post = !project && slug ? await fetchPost(slug) : null;
 
   const needsKorean = Boolean(post && /[가-힣]/.test(post.title));
 
@@ -319,7 +457,15 @@ export async function GET(req: Request) {
       : []),
   ];
 
-  return new ImageResponse(post ? <PostCard post={post} /> : <SiteCard />, {
+  return new ImageResponse(
+    project ? (
+      <ProjectCard project={project} />
+    ) : post ? (
+      <PostCard post={post} />
+    ) : (
+      <SiteCard />
+    ),
+    {
     width: 1200,
     height: 630,
     fonts,

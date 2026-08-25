@@ -12,6 +12,8 @@ import {
 
 export const metadata: Metadata = {
   title: "Projects — monte-kim.dev",
+  description:
+    "Things I've founded, built, and kept running in production. Muroom, the Moty fitness platform, and this site.",
 };
 
 type Project = {
