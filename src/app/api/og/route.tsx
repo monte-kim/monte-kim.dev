@@ -409,7 +409,7 @@ function SiteCard() {
             display: "flex",
           }}
         >
-          by Tae Hwan “Monte” Kim
+          by Monte Kim
         </div>
       </div>
     </Frame>

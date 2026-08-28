@@ -94,7 +94,7 @@
   },
   "aboutPage": {
     "title": "About",
-    "p1": "I'm Tae Hwan Kim, Monte to most people. I'm a software engineer, backend by preference and full-stack in practice, and I like owning the whole path: Terraform and CI/CD at the bottom, Spring Boot APIs in the middle, Next.js consoles on top.",
+    "p1": "I'm Monte Kim, a software engineer, backend by preference and full-stack in practice, and I like owning the whole path: Terraform and CI/CD at the bottom, Spring Boot APIs in the middle, Next.js consoles on top.",
     "p2": "Before software I wrote music: released tracks, film scores, ad music. That's what led me to found Muroom, a studio search platform for musicians. I still think building products is closer to composing than engineering textbooks admit.",
     "nowTitle": "Now",
     "nowBody": "Building the fitness platform at Moty in Seoul. Moving to the UK in <b>October 2026</b> on a Youth Mobility Scheme visa, so no sponsorship is needed. Open to software engineering roles (backend / full-stack) in London.",
@@ -143,7 +143,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2026 Tae Hwan \"Monte\" Kim",
+    "copyright": "© 2026 Monte Kim",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "email": "Email"

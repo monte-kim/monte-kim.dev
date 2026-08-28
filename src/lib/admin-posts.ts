@@ -144,7 +144,7 @@ const FALLBACK_ADMIN_COMMENTS: AdminComment[] = [
   },
   {
     id: "c2",
-    authorName: "Tae Hwan",
+    authorName: "Monte",
     isAuthor: true,
     body: "Yes — we actually use TimescaleDB elsewhere. Here the bucket logic needed business rules that CAGGs couldn't express cleanly.",
     createdAt: "2026-07-27T09:00:00Z",

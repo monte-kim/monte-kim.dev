@@ -94,7 +94,7 @@
   },
   "aboutPage": {
     "title": "소개",
-    "p1": "김태환입니다. 대부분 몬테라고 불러요. 백엔드 지향이지만 실무에선 풀스택인 소프트웨어 엔지니어로, 전체 경로를 직접 책임지는 걸 좋아합니다. 맨 아래엔 Terraform과 CI/CD, 가운데엔 Spring Boot API, 맨 위엔 Next.js 콘솔.",
+    "p1": "몬테입니다. 백엔드 지향이지만 실무에선 풀스택인 소프트웨어 엔지니어로, 전체 경로를 직접 책임지는 걸 좋아합니다. 맨 아래엔 Terraform과 CI/CD, 가운데엔 Spring Boot API, 맨 위엔 Next.js 콘솔.",
     "p2": "소프트웨어 이전엔 음악을 만들었습니다. 트랙을 발매하고, 독립영화 음악을 만들고, 광고 음악을 제작했어요. 그 경험이 뮤지션을 위한 합주실 검색 플랫폼 Muroom 창업으로 이어졌습니다. 지금도 제품을 만드는 일은 공학 교과서가 인정하는 것보다 작곡에 더 가깝다고 생각합니다.",
     "nowTitle": "Now",
     "nowBody": "서울 Moty에서 피트니스 플랫폼을 만들고 있습니다. <b>2026년 10월</b> Youth Mobility Scheme 비자로 영국 이주라 스폰서십이 필요 없습니다. 런던의 소프트웨어 엔지니어링 포지션(백엔드/풀스택)에 열려 있습니다.",
@@ -143,7 +143,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2026 Tae Hwan \"Monte\" Kim",
+    "copyright": "© 2026 Monte Kim",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "email": "이메일"

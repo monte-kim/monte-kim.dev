@@ -6,7 +6,7 @@ import { ClockIcon } from "@/components/icons";
 export const metadata: Metadata = {
   title: "About — monte-kim.dev",
   description:
-    "Tae Hwan \"Monte\" Kim. Software engineer, backend by preference and full-stack in practice, moving to the UK in October 2026.",
+    "Monte Kim. Software engineer, backend by preference and full-stack in practice, moving to the UK in October 2026.",
 };
 
 const TIMELINE_KEYS = ["moty", "muroom", "nhn", "university"] as const;

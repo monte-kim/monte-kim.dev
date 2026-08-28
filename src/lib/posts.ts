@@ -323,7 +323,7 @@ const FALLBACK_COMMENTS: Record<string, CommentItem[]> = {
     {
       id: "c2",
       parentId: "c1",
-      authorName: "Tae Hwan",
+      authorName: "Monte",
       body: "Yes — we actually use TimescaleDB elsewhere. Here the bucket logic needed business rules that CAGGs couldn't express cleanly.",
       isAuthor: true,
       createdAt: "2026-07-27T09:00:00Z",
