@@ -77,7 +77,7 @@
     "fitnessStatus": "In production",
     "fitnessDesc": "Fitness-platform backend and both its web frontends, solo-built. Multi-tenant API: 206 endpoints, 22 domains, one OAuth2 scope-based account system serving 4 client surfaces. ~590× faster analytics (measured), −58% AWS cost.",
     "siteDesc": "This blog. Next.js + Supabase on free tiers, custom block editor with markdown shortcuts, view counts and comments on Postgres.",
-    "newsClassifierDesc": "2-month news-classification pipeline: React/Redux frontend, FastAPI model management, multiprocessing + SSE. 3rd place at Hecto Group showcase."
+    "newsClassifierDesc": "2-month news-classification pipeline: React/Redux frontend, FastAPI model management, multiprocessing + SSE. 3rd of 10 finalists (20 teams entered) at Hecto Group's showcase."
   },
   "projectDetail": {
     "breadcrumb": "Projects",
